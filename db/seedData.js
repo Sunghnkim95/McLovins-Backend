@@ -54,18 +54,17 @@ async function createTables() {
       );
       CREATE TABLE cart (
       id SERIAL PRIMARY KEY,
-      userId REFRENCES users(id)
-      creationDate DATE NOT NULL DEFAULT CURRENT_DATE
+      userId INTEGER REFERENCES users(id),
+      creationDate DATE NOT NULL DEFAULT CURRENT_DATE,
       active BOOLEAN DEFAULT TRUE
       );
     CREATE TABLE cart_item (
       id SERIAL PRIMARY KEY,
-      cartId REFERENCES cart(id),
+      cartId INTEGER REFERENCES cart(id),
       product_id INTEGER REFERENCES product(id),
       item_quantity INTEGER NOT NULL,
       price DECIMAL(10,2) NOT NULL
     );
-    
     CREATE TABLE order_history (
       id SERIAL PRIMARY KEY,
       "userId" INTEGER REFERENCES users(id),
