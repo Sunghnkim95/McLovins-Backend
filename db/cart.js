@@ -41,17 +41,18 @@ async function getCartItemsByCartId(cartId){
     }catch(error){
         throw error
     }
-
 }
 
+//When cart is submitted cart is then set to inactive
 async function setCartInactive(cartId){
     try{
         const {rows}= await client.query(`
         UPDATE cart
         SET "active" = false
-        WHERE id = ($2)
+        WHERE id = ($1)
         RETURNING *;
         `, [ cartId ])
+        return rows
     }catch(error){
         throw error
     }
@@ -66,7 +67,7 @@ module.exports = {
     getCartByUserId,
     getCartItemsByCartId,
     setCartInactive,
-    
+
     
   }
     // CREATE TABLE product (

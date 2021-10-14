@@ -65,6 +65,7 @@ async function getUser({ username, password }) {
       throw error;
     }
   }
+  
   async function updateUser (fields) {
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
@@ -87,6 +88,7 @@ async function getUser({ username, password }) {
         throw error
     }
 }
+
 async function adminUpdateUser (fields) {
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`

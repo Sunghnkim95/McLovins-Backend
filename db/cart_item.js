@@ -1,18 +1,61 @@
 const client  = require('./client');
 
-async function createCartItem({id}) {
+async function createCartItem({cartId, product_Id, item_quantity, price}) {
     try {
       const { rows: [item] } = await client.query(`
-        SELECT name, price
-        FROM product
-        JOIN cart_item on product.id = cart_item.product_Id
-        WHERE product.id=$1;
-      `, [id]);
+        INSERT INTO cart_item (cartId, product_Id, item_quantity, price)
+        VALUES ($1, $2, $3, $4);
+      `, [cartId, product_Id, item_quantity, price]);
       return item;
     } catch (error) {
       throw error;
     }
 }
+
+//will get all the items in a cart
+async function getItemsByCartId(cartId){
+    try{
+        const {rows} = await client.query(`
+        SELECT * FROM cart_item
+        where cartId = $1;
+        `, [cartId])
+        return rows
+    }catch(error){
+        throw error
+    }
+}
+
+//update CartItem quantity, wont allow for updating price right now total price should be
+//calculated at front end by quantity * price
+//may make an additional price update function in the future which will update price only
+//if price is lower than originally
+async function updateCartItemQuantity({item_quantity, cartItemId}){
+    try{
+        const {rows}= await client.query(`
+        UPDATE cart_item
+        SET item_quantity = $1
+        where id = $2
+        RETURNING *;
+        `,[item_quantity, cartItemId])
+        return rows
+    }catch(error){
+        throw error
+    }
+}
+
+async function deleteCartItem(cartItemId){
+     try{
+        const {rows}= await client.query(`
+        DELETE FROM cart_item
+        WHERE id= $1
+        RETURNING *;
+        `,[cartItemId])
+        return rows
+    }catch(error){
+        throw error
+    }
+}
+
 async function getProductQuantity({id}) {
     try {
         const { rows: [ productQuantity ] } = await client.query(`
@@ -61,6 +104,9 @@ async function updateQuantity({id, amount}) {
 module.exports = {
     client,
     createCartItem,
+    getItemsByCartId,
+    updateCartItemQuantity,
+    deleteCartItem,
     getProductQuantity,
     updateQuantity
   }
