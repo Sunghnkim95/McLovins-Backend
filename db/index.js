@@ -5,8 +5,8 @@ const client = require('./client');
   // and export them
 
 module.exports = {
-    ...require('./users'), // adds key/values from users.js
-//     ...require('./products'), // adds key/values from activites.js
-//     ...require('./routines'), // etc
+    ...require('./users'), 
+    ...require('./products'), 
+    ...require('./cart_item'), 
 //    ...require('./routine_activities') // etc
 }

@@ -13,6 +13,18 @@ async function getProductById(id) {
         throw error;
     }
 }
+async function getProductByCategory(category) {
+    try{
+        const  {rows : [product]}  = await client.query(`
+        SELECT *
+        FROM products
+        WHERE category=$1;
+        `, [category])
+    return product
+    }catch (error){
+        throw error;
+    }
+}
 
 async function getProductByName(name) {
     try{
@@ -37,27 +49,24 @@ async function getAllProducts(){
         throw error
     }
 }
-
-
-async function createProduct({ name, description, quantity, price, category }) {
+async function createProduct({ name, description, category, quantity, price, photo}) {
     try{
         const  {rows : [product] }  = await client.query(`
-        INSERT INTO products (name, description, category, quantity, price)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO product (name, description, category, quantity, price, photo)
+        VALUES ($1, $2, $3, $4, $5, $6)
         ON CONFLICT (name) DO NOTHING 
         RETURNING *;
-        `, [name, description, quantity, price, category])
+        `, [name, description, category, quantity, price, photo])
     return product
     }catch (error){
         throw error;
     }
 }
-
 async function updateProduct (fields) {
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
-    const {id, name, description, quantity, price, category} = fields;
+    const {id, name, description, quantity, price, category, photo} = fields;
 
       if (setString.length === 0) {
         return;
@@ -69,13 +78,12 @@ async function updateProduct (fields) {
         SET ${setString}
         WHERE id = ${id}
         RETURNING *;
-        `, [id, name, description, quantity, price, category]);
+        `, [id, name, description, quantity, price, category, photo]);
         return product;
     } catch (error){
         throw error
     }
 }
-
 async function deleteProduct(id){
     try{
        const {rows: [product]} = await client.query(`
@@ -94,5 +102,6 @@ async function deleteProduct(id){
     getAllProducts, 
     updateProduct,
     getProductByName,
-    deleteProduct
+    deleteProduct,
+    getProductByCategory
   }
