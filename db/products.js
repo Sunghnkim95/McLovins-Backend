@@ -15,7 +15,7 @@ async function getProductById(id) {
 }
 async function getProductByCategory(category) {
     try{
-        const  {rows : [product]}  = await client.query(`
+        const  {rows : product}  = await client.query(`
         SELECT *
         FROM products
         WHERE category=$1;
