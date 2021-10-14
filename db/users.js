@@ -65,17 +65,72 @@ async function getUser({ username, password }) {
       throw error;
     }
   }
-  async function DeleteUserByUsername(username) {
-    try {
+  
+  async function updateUser (fields) {
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${ key }"=$${ index + 1 }`
+      ).join(', ');
+    const {id, username, password, email, active} = fields;
 
-    } catch (error) {
+      if (setString.length === 0) {
+        return;
+      }
+      
+    try {
+        const { rows: [ user ] } = await client.query(`
+        UPDATE users
+        SET ${setString}
+        WHERE id = ${id}
+        RETURNING *;
+        `, [id, username, password, email, active]);
+        return user;
+    } catch (error){
+        throw error
+    }
+}
+
+async function adminUpdateUser (fields) {
+    const setString = Object.keys(fields).map(
+        (key, index) => `"${ key }"=$${ index + 1 }`
+      ).join(', ');
+    const {id, active} = fields;
+
+      if (setString.length === 0) {
+        return;
+      }
+      
+    try {
+        const { rows: [ user ] } = await client.query(`
+        UPDATE users
+        SET ${setString}
+        WHERE id = ${id}
+        RETURNING *;
+        `, [id, active]);
+        return user;
+    } catch (error){
+        throw error
+    }
+}
+
+async function deleteUser(id){
+    try{
+       const {rows: [user]} = await client.query(`
+           DELETE FROM users
+           WHERE id=$1;
+       `, [id])
+    }catch (error){
         throw error;
     }
-  }
+   }
+
 module.exports =  {
     client,
     createUser,
     getUser,
     getUserById,
     getUserByUsername,
+    updateUser,
+    adminUpdateUser,
+    deleteUser
 }
+
