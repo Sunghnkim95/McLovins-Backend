@@ -14,7 +14,6 @@ async function createCart () {
     }
 }
 
-
 //This will get cartId for the current cart session of the user
 async function getCartByUserId(userId) {
     try{
