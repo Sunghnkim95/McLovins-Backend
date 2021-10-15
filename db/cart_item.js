@@ -71,8 +71,7 @@ async function getProductQuantity({id}) {
 }
 
 //amount for this would come from front end
-async function updateQuantity({id, amount}) {  
-    let newQuantity;
+async function checkQuantity({id, amount}) {  
     try {
         const { rows: [ productQuantity ] } = await client.query(`
         SELECT quantity
@@ -81,14 +80,8 @@ async function updateQuantity({id, amount}) {
         RETURNING *;
         `, [id]);
         if (productQuantity >= amount){
-            newQuantity = productQuantity-amount;
-            const { rows: [ updatedQuantity ] } =await client.query(`
-            UPDATE product
-            SET quantity = $1
-            WHERE id = $2
-            RETURNING *;
-            `, [newQuantity, id]);
-            return updatedQuantity
+            console.log("add it to cart");
+            return true
         }else {
             throw {
                 name: "insufficientQuantity",
@@ -108,7 +101,7 @@ module.exports = {
     updateCartItemQuantity,
     deleteCartItem,
     getProductQuantity,
-    updateQuantity
+    checkQuantity
   }
 
 
