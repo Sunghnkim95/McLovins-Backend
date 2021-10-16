@@ -4,6 +4,15 @@ const {
 const {
   createProduct,
 } = require('./products')
+const {
+  createOrderHistory,
+} = require('./order_history')
+const {
+  createCart,
+} = require('./cart')
+const {
+  createCartItem,
+} = require('./cart_item')
 const client = require('./client');
 const {getAllUsers} = require('./index');
 
@@ -127,8 +136,71 @@ async function createInitialProducts() {
 
 }
 
+async function createCartForUser() {
+    console.log('Starting to create cart');
+    try {
+      const cartsToCreate = [
+         { userId: 1 , active:true},
+         { userId: 2, active:true }, 
+         { userId: 3, active:false }, 
+         { userId: 4, active:true },
+         { userId: 5, active:false },
+         { userId: 6, active:true }
+      ]
+      const carts = await Promise.all(cartsToCreate.map(createCart));
+  
+      console.log('carts created:');
+      console.log( carts);
+      console.log('Finished creating carts!');
+    } catch (error) {
+      console.error('Error creating carts!');
+      throw error;
+    }
+  }
 
+  async function addProductToCart() {
+    console.log('Starting to add product to Cart...');
+    try {
+      const productsToAdd = [
+        {cartId: 3, product_id: 2, item_quantity: 3, price: 19.00 },
+        {cartId: 3, product_id: 3, item_quantity: 4, price: 116.00 },
+        {cartId: 1, product_id: 5, item_quantity: 6, price: 6.00 },
+        {cartId: 5, product_id: 2, item_quantity: 3, price: 19.00 },
+        {cartId: 5, product_id: 3, item_quantity: 4, price: 116.00 },
+        {cartId: 5, product_id: 5, item_quantity: 6, price: 6.00 }
+      ]
+      const product = await Promise.all(productsToAdd.map(createCartItem));
+  
+      console.log('Cart Item created:');
+      console.log(product);
+      console.log('Finished creating Cart Items!');
+    } catch (error) {
+      console.error('Error creating Cart Items!');
+      throw error;
+    }
+  }
 
+  async function addCartToOrderHistory() {
+    console.log('Starting to add cart to order history...');
+    try {
+      const cartsToAdd = [
+        {userId: 3, cartId: 3 },
+        {userId: 3, cartId: 3 },
+        {userId: 5, cartId: 2 },
+        {userId: 5, cartId: 2 },
+        {userId: 5, cartId: 2 },
+        {userId: 3, cartId: 2 },
+      ]
+      const oh = await Promise.all(cartsToAdd.map(createOrderHistory));
+  
+      console.log('order history created:');
+      console.log(oh);
+      console.log('Finished creating Order History!');
+    } catch (error) {
+      console.error('Error creating Order History!');
+      throw error;
+    }
+  }
 
 async function rebuildDB() {
   try {
@@ -136,8 +208,11 @@ async function rebuildDB() {
     await dropTables();
     await createTables();
     await createInitialUsers();
-    await createInitialProducts()
-  } catch (error) {
+    await createInitialProducts();
+    await createCartForUser();
+    await addProductToCart();
+    await addCartToOrderHistory();
+;  } catch (error) {
     console.log('Error during rebuildDB')
     throw error;
   }

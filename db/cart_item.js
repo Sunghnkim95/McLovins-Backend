@@ -1,11 +1,12 @@
 const client  = require('./client');
 
-async function createCartItem({cartId, product_Id, item_quantity, price}) {
+async function createCartItem({cartId, product_id, item_quantity, price}) {
     try {
       const { rows: [item] } = await client.query(`
-        INSERT INTO cart_item (cartId, product_Id, item_quantity, price)
-        VALUES ($1, $2, $3, $4);
-      `, [cartId, product_Id, item_quantity, price]);
+        INSERT INTO cart_item (cartId, product_id, item_quantity, price)
+        VALUES ($1, $2, $3, $4)
+        RETURNING *;
+      `, [cartId, product_id, item_quantity, price]);
       return item;
     } catch (error) {
       throw error;
@@ -56,6 +57,43 @@ async function deleteCartItem(cartItemId){
     }
 }
 
+async function getProductQuantity({id}) {
+    try {
+        const { rows: [ productQuantity ] } = await client.query(`
+        SELECT quantity
+        FROM product
+        WHERE id = $1
+        RETURNING *;
+        `, [id]);
+        return productQuantity;
+    } catch (error){
+        throw error
+    }
+}
+
+//amount for this would come from front end
+async function checkQuantity({id, amount}) {  
+    try {
+        const { rows: [ productQuantity ] } = await client.query(`
+        SELECT quantity
+        FROM product
+        WHERE id = $1
+        RETURNING *;
+        `, [id]);
+        if (productQuantity >= amount){
+            console.log("add it to cart");
+            return true
+        }else {
+            throw {
+                name: "insufficientQuantity",
+                message: "THERE ARE NOT ENOUGH OF THIS ITEM IN STOCK."
+            }
+        }
+    }catch (error){
+            throw error
+    }
+}
+
 
 module.exports = {
     client,
@@ -64,7 +102,7 @@ module.exports = {
     updateCartItemQuantity,
     deleteCartItem,
     getProductQuantity,
-    updateQuantity
+    checkQuantity
   }
 
 

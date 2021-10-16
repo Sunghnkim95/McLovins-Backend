@@ -8,5 +8,6 @@ module.exports = {
     ...require('./users'), 
     ...require('./products'), 
     ...require('./cart_item'), 
-//    ...require('./routine_activities') // etc
+    ...require('./order_history'),
+    ...require('./cart')
 }
