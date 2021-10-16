@@ -111,15 +111,7 @@ usersRouter.get('/me', async (req, res, next) => {
         next(error);
       }
     })
-    // const resp = await fetch(`users/1/cart`)
-        // fetch('localhost:3000/users/1/cart',
-        //     {headers: {
-        //     'Content-Type': 'application/json'
-        // },}
-        // )
-        // .then(response => response.json())
-        // .then(data => console.log(data));
-    // const data = await resp.json()
+   
 usersRouter.get('/:id/cart', async (req, res, next)=> {
   const { id } = req.params
   try {

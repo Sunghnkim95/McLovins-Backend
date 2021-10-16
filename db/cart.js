@@ -14,12 +14,12 @@ async function createCart ({userId}) {
     }
 }
 
-//This will get cartId for the current cart session of the user
+//This will get cartId for the current Active cart session of the user
 async function getCartByUserId(userId) {
     try{
         const { rows: [ cart ] }= await client.query(`
         SELECT * FROM cart
-        WHERE userId =$1
+        WHERE "userId" =$1
         AND active = true;
         `, [userId])
         return cart
