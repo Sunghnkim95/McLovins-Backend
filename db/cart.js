@@ -14,8 +14,7 @@ async function createCart () {
     }
 }
 
-
-//This will get cartId for the current cart session of the user
+//This will get cartId for the current Active cart session of the user
 async function getCartByUserId(userId) {
     try{
         const { rows: [ cart ] = await client.query(`
