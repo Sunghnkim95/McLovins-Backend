@@ -140,12 +140,12 @@ async function createCartForUser() {
     console.log('Starting to create cart');
     try {
       const cartsToCreate = [
-         { userId: 1 , active:true},
-         { userId: 2, active:true }, 
-         { userId: 3, active:false }, 
-         { userId: 4, active:true },
-         { userId: 5, active:false },
-         { userId: 6, active:true }
+         { userId: 1 },
+         { userId: 2 }, 
+         { userId: 3 }, 
+         { userId: 4 },
+         { userId: 5 },
+         { userId: 6 }
       ]
       const carts = await Promise.all(cartsToCreate.map(createCart));
   
@@ -184,14 +184,14 @@ async function createCartForUser() {
     console.log('Starting to add cart to order history...');
     try {
       const cartsToAdd = [
+        {userId: 1, cartId: 1 },
+        {userId: 2, cartId: 2 },
         {userId: 3, cartId: 3 },
-        {userId: 3, cartId: 3 },
-        {userId: 5, cartId: 2 },
-        {userId: 5, cartId: 2 },
-        {userId: 5, cartId: 2 },
-        {userId: 3, cartId: 2 },
+        {userId: 4, cartId: 4 },
+        {userId: 5, cartId: 5 },
+        {userId: 6, cartId: 6 },
       ]
-      const oh = await Promise.all(cartsToAdd.map(createOrderHistory));
+      const oh = await Promise.all(cartsToAdd.map((cart)=> createOrderHistory(cart)));
   
       console.log('order history created:');
       console.log(oh);

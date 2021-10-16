@@ -1,0 +1,147 @@
+const express = require('express');
+const usersRouter = express.Router();
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = process.env;
+
+const {
+    createUser,
+    getUser,
+    getUserByUsername,
+    getUserById,
+    updateUser,
+    adminUpdateUser,
+    deleteUser,
+    getCartByUserId,
+    getOrderHistoryByUserId
+} = require('../db')
+
+
+usersRouter.use((req, res, next) => {
+    console.log("A request is being made to /users");
+    next();
+  });
+
+    
+usersRouter.post('/login', async (req, res, next) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+      next({
+        name: "MissingCredentialsError",
+        message: "Please supply both a username and password",
+      });
+    }
+
+    try {
+      const user = await getUser({username,password});
+      if (!user) {
+        res.status(401)
+        next({
+          name: "IncorrectCredentialsError",
+          message: "Username or password is incorrect",
+        });
+      } else {
+      
+      
+      const token = jwt.sign(
+        {
+          id: user.id,
+          username: user.username,
+        },
+        JWT_SECRET,
+        {expiresIn: "1w"}
+      );
+      console.log("Label", token)
+      console.log("label", req.body)
+    
+      res.send({
+        user: user,
+        message: "you're logged in!",
+        token: token
+      });
+    }
+      
+    } catch ({ name, message }) {
+      next({ name, message });
+    }
+  });
+
+
+  usersRouter.post('/register', async (req, res, next) => {
+    const {username, password, email} = req.body;
+    try {
+        const _user = await getUserByUsername(username);
+        if (_user){
+            res.status(401)
+            next({
+                name: "UserExistsError",
+                message: "A user by that username already exists"
+            })
+        } else if (password.length < 8){
+            res.status(401)
+            next({
+                name: "PasswordTooShortError",
+                message: "Please enter a longer password"
+            })
+        } else {
+            const user = await createUser({
+                username, password, email
+            })
+            res.send({user})
+        }
+    } catch (error){
+        throw (error)
+    }
+}) 
+
+usersRouter.get('/me', async (req, res, next) => {
+    try{
+      const prefix = 'Bearer ';
+      const auth = req.header('Authorization');
+      const token = auth?auth.slice(prefix.length):null;
+      const { id } = jwt.verify(token, JWT_SECRET);
+      if (id) {
+        const me = await getUserById(id);
+        res.send({ username: me.username,
+          token: token
+        });
+      }
+    } catch(error) {
+        console.error(error);
+        next(error);
+      }
+    })
+    // const resp = await fetch(`users/1/cart`)
+        // fetch('localhost:3000/users/1/cart',
+        //     {headers: {
+        //     'Content-Type': 'application/json'
+        // },}
+        // )
+        // .then(response => response.json())
+        // .then(data => console.log(data));
+    // const data = await resp.json()
+usersRouter.get('/:id/cart', async (req, res, next)=> {
+  const { id } = req.params
+  try {
+    
+    const cart = await getCartByUserId(id)
+
+    res.send(cart)
+    } catch(error){
+      throw (error)
+    }
+})
+
+usersRouter.get('/:id/order_history', async (req, res, next)=> {
+    const { id } = req.params
+    try {
+      
+      const orderHistory = await getOrderHistoryByUserId(id)
+  
+      res.send(orderHistory)
+      } catch(error){
+        throw (error)
+      }
+  })
+
+module.exports = usersRouter;
