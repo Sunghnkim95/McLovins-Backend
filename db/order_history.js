@@ -3,8 +3,10 @@ const client  = require('./client');
 async function createOrderHistory ({userId, cartId}) {
     try{
         const { rows: [ orders ] } = await client.query(`
-        INSERT INTO order_history ("userId", "cartId")
-        VALUES ($1, $2)
+        SELECT (cartId) FROM carts
+        WHERE cartId = $1 AND active = false
+        INSERT INTO order_history ("cartId")
+        VALUES ($1)
         RETURNING *;
     `, [userId, cartId]); 
     return orders;
@@ -34,7 +36,25 @@ async function getOrderHistoryByUserId(userId) {
 //     placed DATE NOT NULL DEFAULT CURRENT_DATE
 //     );
 
+/*
+async function getOrderHistoryByInactiveCart(userId, cartId){
+    try{
+        const { rows } = await client.query(`
+        SELECT * FROM order_history`
+        );
 
+        const 
+    }
+}
+
+
+    CREATE TABLE order_history (
+      id SERIAL PRIMARY KEY,
+      "userId" INTEGER REFERENCES users(id),
+      "cartId" INTEGER REFERENCES cart(id),
+      placed DATE NOT NULL DEFAULT CURRENT_DATE
+      );
+*/
 
 
 

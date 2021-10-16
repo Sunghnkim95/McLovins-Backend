@@ -184,14 +184,15 @@ async function createCartForUser() {
     console.log('Starting to add cart to order history...');
     try {
       const cartsToAdd = [
-        {userId: 3, cartId: 3 },
-        {userId: 3, cartId: 3 },
-        {userId: 5, cartId: 2 },
-        {userId: 5, cartId: 2 },
-        {userId: 5, cartId: 2 },
+        {userId: 1, cartId: 3 },
+        {userId: 2, cartId: 3 },
         {userId: 3, cartId: 2 },
+        {userId: 4, cartId: 2 },
+        {userId: 5, cartId: 2 },
+        {userId: 6, cartId: 2 },
       ]
       const oh = await Promise.all(cartsToAdd.map(createOrderHistory));
+      
   
       console.log('order history created:');
       console.log(oh);
