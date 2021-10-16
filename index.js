@@ -2,12 +2,14 @@ require('dotenv').config();
 const { PORT = 3000 } = process.env
 const express = require('express');
 const server = express();
-const cors = require('cors');
-
-server.use(cors());
+const helmet = require('helmet');
+//server.use(helmet());
 const bodyParser = require('body-parser');
 server.use(bodyParser.json());
-
+server.use(function(req, res, next) {
+    res.setHeader('Content-Security-Policy', "default-src 'self' localhost")
+    return next()
+} );
 const apiRouter = require('./api');
 server.use('/api', apiRouter);
 
@@ -15,6 +17,8 @@ server.use('/api', apiRouter);
 const client = require('./db/client');
 
 const morgan = require('morgan');
+const { appendFile } = require('fs');
+const { getOrderHistoryByUserId } = require('./db');
 server.use(morgan('dev'));
 
 server.use((req, res, next) =>{

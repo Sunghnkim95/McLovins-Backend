@@ -48,8 +48,8 @@ apiRouter.use((error, req, res, next) => {
 });
 
 
-// const usersRouter = require('./users');
-// apiRouter.use('/users', usersRouter);
+ const usersRouter = require('./users');
+  apiRouter.use('/users', usersRouter);
 
 // const healthRouter = require('./health_check');
 // apiRouter.use('/health', healthRouter);
