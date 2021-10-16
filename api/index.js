@@ -44,14 +44,16 @@ apiRouter.use(async (req, res, next) => {
 //     }
 //     next();
 //   });
+ const usersRouter = require('./users');
+  apiRouter.use('/users', usersRouter);
 
+  
 apiRouter.use((error, req, res, next) => {
   res.send(error);
 });
 
 
- const usersRouter = require('./users');
-  apiRouter.use('/users', usersRouter);
+
 
 // const healthRouter = require('./health_check');
 // apiRouter.use('/health', healthRouter);

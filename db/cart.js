@@ -19,7 +19,7 @@ async function getCartByUserId(userId) {
     try{
         const { rows: [ cart ] }= await client.query(`
         SELECT * FROM cart
-        WHERE userId =$1
+        WHERE "userId" =$1
         AND active = true;
         `, [userId])
         return cart
