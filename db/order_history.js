@@ -29,38 +29,6 @@ async function getOrderHistoryByUserId(userId) {
 
 
 
-// CREATE TABLE order_history (
-//     id SERIAL PRIMARY KEY,
-//     "userId" INTEGER REFERENCES users(id),
-//     "cartId" INTEGER REFERENCES cart(id),
-//     placed DATE NOT NULL DEFAULT CURRENT_DATE
-//     );
-
-/*
-async function getOrderHistoryByInactiveCart(userId, cartId){
-    try{
-        const { rows } = await client.query(`
-        SELECT * FROM order_history`
-        );
-
-        const 
-    }
-}
-
-
-    CREATE TABLE order_history (
-      id SERIAL PRIMARY KEY,
-      "userId" INTEGER REFERENCES users(id),
-      "cartId" INTEGER REFERENCES cart(id),
-      placed DATE NOT NULL DEFAULT CURRENT_DATE
-      );
-*/
-
-
-
-
-
-
 module.exports = {
     getOrderHistoryByUserId,
     createOrderHistory,

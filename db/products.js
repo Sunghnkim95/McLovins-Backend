@@ -86,7 +86,7 @@ async function updateProduct (fields) {
 async function deleteProduct(id){
     try{
        const {rows: [product]} = await client.query(`
-           DELETE FROM activities
+           DELETE FROM product
            WHERE id=$1;
        `, [id])
     }catch (error){

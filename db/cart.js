@@ -29,7 +29,6 @@ async function getCartByUserId(userId) {
 }
 
 //This will get all of the cart items based on the cartId given
-
 async function getCartItemsByCartId(cartId){
     try{
         const {rows} = await client.query(`
@@ -58,35 +57,6 @@ async function setCartInactive(cartId){
 
 }
 
-/* async function getAllInactiveCart ({userId}){
-    try{
-        const {rows} = await client.query (`
-        SELECT * FROM cart
-        WHERE id = $1 AND status = 'inactive'
-        `, [userId]
-        );
-        if (rows.length>0){
-            console.log('inside cart', rows)
-            const products = rows[0].product_id
-            const productArr = []
-            for (i=0; i<products.length; i++){
-                console.log('product Id', products[i])
-                const {
-                    rows: [product]
-                } = await client.query(`
-                    SELECT * FROM products
-                    WHERE id = ${products[i]}
-                `);
-            productArr.push(product)
-            }
-            return {id: rows[0].id, products: productArr}
-        } else {
-            return []
-        }
-    } catch (error) {
-        throw (error)
-    }
-}*/
 
 module.exports = {
     client,
@@ -94,6 +64,4 @@ module.exports = {
     getCartByUserId,
     getCartItemsByCartId,
     setCartInactive,
-
-    
   }
