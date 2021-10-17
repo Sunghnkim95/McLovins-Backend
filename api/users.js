@@ -12,13 +12,21 @@ const {
     adminUpdateUser,
     deleteUser,
     getCartByUserId,
-    getOrderHistoryByUserId
+    getOrderHistoryByUserId,
+    getAllUsers
 } = require('../db')
 
 
 usersRouter.use((req, res, next) => {
     console.log("A request is being made to /users");
     next();
+  });
+
+  usersRouter.get('/', async (req, res) => {
+    const users = await getAllUsers();
+    res.send({
+      users
+    });
   });
 
     
@@ -33,7 +41,7 @@ usersRouter.post('/login', async (req, res, next) => {
     }
 
     try {
-      const user = await getUser({username,password});
+      const user = await getUser({username: username, password: password});
       if (!user) {
         res.status(401)
         next({
@@ -41,8 +49,6 @@ usersRouter.post('/login', async (req, res, next) => {
           message: "Username or password is incorrect",
         });
       } else {
-      
-      
       const token = jwt.sign(
         {
           id: user.id,

@@ -20,18 +20,17 @@ productRouter.use((req, res, next) => {
 
 productRouter.get('/', async (req, res, next) => {
 	try {
-	   const products = await getAllProducts();	   
-	   res.send(products);	   
+		const products = await getAllProducts();	
+		res.send(products);	  
 	} catch (error) {
-	   next(error);
-   }
+		next(error);
+	}
 });
 
 productRouter.post('/', async (req, res, next) => {
 	try {
 		const newProduct = await createProduct(req.body);
 		res.send(newProduct);
-
 	} catch (error) {
 		next(error);
 	}

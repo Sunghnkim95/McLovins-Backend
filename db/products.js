@@ -5,7 +5,7 @@ async function getProductById(id) {
     try{
         const  {rows : [product]}  = await client.query(`
         SELECT *
-        FROM products
+        FROM product
         WHERE id=$1;
         `, [id])
     return product
@@ -17,7 +17,7 @@ async function getProductByCategory(category) {
     try{
         const  {rows : product}  = await client.query(`
         SELECT *
-        FROM products
+        FROM product
         WHERE category=$1;
         `, [category])
     return product
@@ -29,7 +29,7 @@ async function getProductByName(name) {
     try{
         const  {rows : [product]}  = await client.query(`
         SELECT *
-        FROM products
+        FROM product
         WHERE name=$1;
         `, [name])
     return product
@@ -39,11 +39,11 @@ async function getProductByName(name) {
 }
 async function getAllProducts(){
     try{
-        const {products} = await client.query(`
+        const { rows } = await client.query(`
         SELECT *
-        FROM products;
+        FROM product;
         `)
-        return products
+        return rows
     }catch (error){
         throw error
     }
@@ -73,7 +73,7 @@ async function updateProduct (fields) {
       
     try {
         const { rows: [ product ] } = await client.query(`
-        UPDATE products
+        UPDATE product
         SET ${setString}
         WHERE id = ${id}
         RETURNING *;

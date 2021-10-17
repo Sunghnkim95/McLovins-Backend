@@ -17,7 +17,6 @@ cartRouter.post('/', async (req, res, next) => {
 	try {
 		const newCart = await createCart(req.body);
 		res.send(newCart);
-
 	} catch (error) {
 		next(error);
 	}

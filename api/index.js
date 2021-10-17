@@ -1,17 +1,10 @@
 const express = require('express');
 const apiRouter = express.Router();
-
-
-// attach other routers from files in this api directory (users, activities...)
-// const { getUserById } = require('../db/users');
+const { getUserById } = require('../db/users');
+const { JWT_SECRET } = process.env;
 const jwt = require('jsonwebtoken');
 
-const { JWT_SECRET } = process.env;
-
-
 apiRouter.use(async (req, res, next) => {
-
-  
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
   
@@ -44,29 +37,26 @@ apiRouter.use(async (req, res, next) => {
 //     }
 //     next();
 //   });
- const usersRouter = require('./users');
-  apiRouter.use('/users', usersRouter);
+const usersRouter = require('./users');
+apiRouter.use('/users', usersRouter);
 
+const productRouter = require('./product');
+apiRouter.use('/product', productRouter);
+
+const cartRouter = require('./cart');
+apiRouter.use('/cart', cartRouter);
   
+
+
+
+
+
+
+
 apiRouter.use((error, req, res, next) => {
   res.send(error);
 });
 
-
-
-
-// const healthRouter = require('./health_check');
-// apiRouter.use('/health', healthRouter);
-
-// const activitiesRouter = require('./activities');
-// apiRouter.use('/activities', activitiesRouter);
-
-// const routinesRouter = require('./routines');
-// apiRouter.use('/routines', routinesRouter);
-
-
-// const routine_activityRouter = require('./routine_activities');
-// apiRouter.use('/routine_activities', routine_activityRouter);
 
 // export the api router
 module.exports = apiRouter;
