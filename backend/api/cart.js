@@ -3,7 +3,8 @@ const cartRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 
-const {createCart, 
+const {
+	createCart, 
     getCartByUserId,
     getCartItemsByCartId,
     setCartInactive, }= require('../db')
@@ -11,6 +12,17 @@ const {createCart,
 cartRouter.use((req, res, next) => {
     console.log("A request is being made to /carts");
     next(); 
+});
+
+cartRouter.get('/', async (req, res, next) => {
+	try {
+		//const { id } = req.params.id [2]
+		const id = 2
+		const cart = await getCartByUserId(id);	
+		res.send(cart);	  
+	} catch (error) {
+		next(error);
+	}
 });
 
 cartRouter.post('/', async (req, res, next) => {
@@ -51,3 +63,4 @@ cartRouter.patch('/:cartId', async (req, res, next) => {
 	}
 });
 
+module.exports = cartRouter;

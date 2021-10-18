@@ -48,11 +48,6 @@ apiRouter.use('/cart', cartRouter);
   
 
 
-
-
-
-
-
 apiRouter.use((error, req, res, next) => {
   res.send(error);
 });

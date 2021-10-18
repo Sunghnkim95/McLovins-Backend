@@ -33,7 +33,7 @@ async function getCartItemsByCartId(cartId){
     try{
         const {rows} = await client.query(`
         SELECT * FROM cart_item
-        Where cartId = $1;
+        WHERE cartId = $1;
         `, [cartId])
         return rows
     }catch(error){
@@ -54,9 +54,21 @@ async function setCartInactive(cartId){
     }catch(error){
         throw error
     }
-
 }
 
+async function addCartItemToCart(cartId, cart_itemId){
+    try{
+        const {rows} = await client.query(`
+        INSERT INTO cart (id, price)
+        FROM cart_item
+        VALUE ($1, $2)
+        RETURNING *;
+        `, [])
+        return rows
+    }catch(error){
+        throw error
+    }
+}
 
 module.exports = {
     client,
