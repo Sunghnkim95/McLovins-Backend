@@ -1,6 +1,6 @@
 export const BASE_URL = 'localhost:3000';
 
-export async function fetchResgisterUser(url, username, password) {
+export async function fetchRegisterUser(url, username, password) {
     try {
         const response = await fetch(`${url}/users/register`, {
             method: "POST",
