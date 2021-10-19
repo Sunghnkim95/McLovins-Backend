@@ -56,14 +56,12 @@ async function setCartInactive(cartId){
     }
 }
 
-async function addCartItemToCart(cartId, cart_itemId){
+async function checkCartItemByProduct(cartId, product_id){
     try{
         const {rows} = await client.query(`
-        INSERT INTO cart (id, price)
-        FROM cart_item
-        VALUE ($1, $2)
-        RETURNING *;
-        `, [])
+        SELECT * FROM cart_item
+        WHERE cartId = $1 AND product_id = $2;
+        `, [cartId, product_id])
         return rows
     }catch(error){
         throw error
@@ -76,4 +74,5 @@ module.exports = {
     getCartByUserId,
     getCartItemsByCartId,
     setCartInactive,
+    checkCartItemByProduct
   }

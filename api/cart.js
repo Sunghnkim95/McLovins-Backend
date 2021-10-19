@@ -7,19 +7,42 @@ const {
 	createCart, 
     getCartByUserId,
     getCartItemsByCartId,
-    setCartInactive, }= require('../db')
+    setCartInactive, 
+	checkCartItemByProduct
+}= require('../backend/db')
 
 cartRouter.use((req, res, next) => {
     console.log("A request is being made to /carts");
     next(); 
 });
-
+/*
 cartRouter.get('/', async (req, res, next) => {
 	try {
-		//const { id } = req.params.id [2]
-		const id = 2
+		const { id } = req.params
 		const cart = await getCartByUserId(id);	
 		res.send(cart);	  
+	} catch (error) {
+		next(error);
+	}
+});
+*/
+cartRouter.get('/cart', async (req, res, next) => {
+	try {
+		const { id } = req.params
+		const cart = await getCartByUserId(id);
+		const cartItems = await getCartItemsByCartId(cart.id)
+		res.send(cartItems);	  
+	} catch (error) {
+		next(error);
+	}
+});
+
+cartRouter.get('/cart/:product_id', async (req, res, next) => {
+	try {
+		const { product_id } = req.params;
+		const { cartId } = req.body; 
+		const checkCart = await checkCartItemByProduct(product_id, cartId);
+		res.send(checkCart);	  
 	} catch (error) {
 		next(error);
 	}

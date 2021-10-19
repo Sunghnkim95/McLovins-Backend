@@ -23,7 +23,7 @@ async function getItemsByCartId(cartId){
         return rows
     }catch(error){
         throw error
-    }
+    }productRouter
 }
 
 //update CartItem quantity, wont allow for updating price right now total price should be
