@@ -9,7 +9,7 @@ const {
     getCartItemsByCartId,
     setCartInactive, 
 	checkCartItemByProduct
-}= require('../backend/db')
+}= require('../db')
 
 cartRouter.use((req, res, next) => {
     console.log("A request is being made to /carts");
