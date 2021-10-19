@@ -47,18 +47,12 @@ const IndividualProd = ({userToken, allProducts, setAllProducts, selectedProd, p
                                                 allProducts={allProducts} 
                                                 setAllProducts={setAllProducts} 
                                                 selectedProd={selectedProd}
-                                                ToggleClass={ToggleClass}
-                                                productName={productName}
-                                                setProductName={setProductName}
-                                                productDescript={productDescript}
+                                                ToggleClass={ToggleClass}                             
+                                                setProductName={setProductName}                                             
                                                 setProductDescript={setProductDescript}
-                                                productPrice={productPrice} 
                                                 setProductPrice={setProductPrice} 
-                                                productCategory={productCategory} 
                                                 setProductCategory={setProductCategory} 
-                                                productQuantity={productQuantity}
                                                 setProductQuantity={setProductQuantity} 
-                                                productPhoto={productPhoto} 
                                                 setProductPhoto={setProductPhoto}
                                             />
                                         </div>
