@@ -1,0 +1,38 @@
+{
+  "name": "McLovins-",
+  "version": "1.0.0",
+  "description": "Grace Shopper Project",
+  "main": "index.js",
+  "scripts": {
+    "seed:dev": "nodemon ./db/seed.js",
+    "seed": "node ./db/seed.js",
+    "start:dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunghnkim95/McLovins-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sunghnkim95/McLovins-/issues"
+  },
+  "homepage": "https://github.com/Sunghnkim95/McLovins-#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "axios": "^0.23.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "node": "^16.10.0",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
