@@ -5,7 +5,8 @@ const server = express();
 const router = express.Router()
 
 const corsOptions = {
-    methods: "GET, POST"
+    methods: "GET, POST",
+    origin: "*"
 }
 
 const cors = require('cors');
