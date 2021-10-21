@@ -4,9 +4,11 @@ const express = require('express');
 const server = express();
 const router = express.Router()
 
+const cors = require('cors');
+server.use(cors())
+
 const bodyParser = require('body-parser');
 server.use(bodyParser.json());
-
 
 server.use(function(req, res, next) {
     res.setHeader('Content-Security-Policy', "connect-src 'self' localhost")
