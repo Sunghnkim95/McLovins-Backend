@@ -10,10 +10,12 @@ server.use(cors())
 const bodyParser = require('body-parser');
 server.use(bodyParser.json());
 
+/*
 server.use(function(req, res, next) {
     res.setHeader('Content-Security-Policy', "connect-src 'self' localhost")
     return next()
 } );
+*/
 
 const apiRouter = require('./api');
 
