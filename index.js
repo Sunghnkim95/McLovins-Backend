@@ -10,7 +10,7 @@ const corsOptions = {
 }
 
 const cors = require('cors');
-server.use(cors(corsOptions))
+server.use(cors())
 
 const bodyParser = require('body-parser');
 server.use(bodyParser.json());
