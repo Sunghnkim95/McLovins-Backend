@@ -76,6 +76,8 @@ usersRouter.post('/login', async (req, res, next) => {
 
 
   usersRouter.post('/register', async (req, res, next) => {
+    res.send('hello')
+    /*
     const {username, password, email} = req.body;
     try {
         const _user = await getUserByUsername(username);
@@ -105,9 +107,12 @@ usersRouter.post('/login', async (req, res, next) => {
             })
             res.send({user})
         }
-    } catch (error){
+        
+    }
+     catch (error){
         throw (error)
     }
+    */
 }) 
 
 usersRouter.get('/me', async (req, res, next) => {
