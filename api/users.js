@@ -76,7 +76,7 @@ usersRouter.post('/login', async (req, res, next) => {
 
 
   usersRouter.post('/register', async (req, res, next) => {
-    res.send('hello')
+    res.status(201).json({message:"hello there"})
     /*
     const {username, password, email} = req.body;
     try {
