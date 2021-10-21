@@ -13,7 +13,8 @@ const {
     deleteUser,
     getCartByUserId,
     getOrderHistoryByUserId,
-    getAllUsers
+    getAllUsers,
+    getUserByEmail
 } = require('../db')
 
 
@@ -42,6 +43,7 @@ usersRouter.post('/login', async (req, res, next) => {
 
     try {
       const user = await getUser({username: username, password: password});
+      
       if (!user) {
         res.status(401)
         next({
@@ -77,13 +79,21 @@ usersRouter.post('/login', async (req, res, next) => {
     const {username, password, email} = req.body;
     try {
         const _user = await getUserByUsername(username);
+        const _email= await getUserByEmail(email);
         if (_user){
             res.status(401)
             next({
                 name: "UserExistsError",
                 message: "A user by that username already exists"
             })
-        } else if (password.length < 8){
+        } else if (_email){
+          res.status(401)
+          next({
+              name: "emailExistsError",
+              message: "That Email address is already registered to an account"
+          })
+      }
+        else if (password.length < 8){
             res.status(401)
             next({
                 name: "PasswordTooShortError",
