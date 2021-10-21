@@ -4,8 +4,12 @@ const express = require('express');
 const server = express();
 const router = express.Router()
 
+const corsOptions = {
+    methods: "GET, POST"
+}
+
 const cors = require('cors');
-server.use(cors())
+server.use(cors(corsOptions))
 
 const bodyParser = require('body-parser');
 server.use(bodyParser.json());
