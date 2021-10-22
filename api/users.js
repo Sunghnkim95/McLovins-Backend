@@ -76,12 +76,14 @@ usersRouter.post('/login', async (req, res, next) => {
 
 
   usersRouter.post('/register', async (req, res, next) => {
-    res.status(201).json({message:"hello there"})
-    /*
+    
     const {username, password, email} = req.body;
     try {
+      console.log('here 1');
         const _user = await getUserByUsername(username);
+      console.log('here 2');
         const _email= await getUserByEmail(email);
+      console.log('here 3');
         if (_user){
             res.status(401)
             next({
@@ -105,6 +107,7 @@ usersRouter.post('/login', async (req, res, next) => {
             const user = await createUser({
                 username, password, email
             })
+        console.log('here 4');
             res.send({user})
         }
         
@@ -112,7 +115,6 @@ usersRouter.post('/login', async (req, res, next) => {
      catch (error){
         throw (error)
     }
-    */
 }) 
 
 usersRouter.get('/me', async (req, res, next) => {
