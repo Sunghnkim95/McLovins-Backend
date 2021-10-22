@@ -76,23 +76,17 @@ usersRouter.post('/login', async (req, res, next) => {
 
 
   usersRouter.post('/register', async (req, res, next) => {
-    
     const {username, password, email} = req.body;
     try {
-      console.log('here 1');
         const _user = await getUserByUsername(username);
-      console.log('here 2');
         const _email= await getUserByEmail(email);
-      console.log('here 3');
         if (_user){
-      console.log('here 4');
             res.status(401)
             next({
                 name: "UserExistsError",
                 message: "A user by that username already exists"
             })
         } else if (_email){
-          console.log('here 5');
           res.status(401)
           next({
               name: "emailExistsError",
@@ -100,21 +94,17 @@ usersRouter.post('/login', async (req, res, next) => {
           })
       }
         else if (password.length < 8){
-          console.log('here 6');
             res.status(401)
             next({
                 name: "PasswordTooShortError",
                 message: "Please enter a longer password"
             })
         } else {
-          console.log('here 7')
             const user = await createUser({
                 username, password, email
             })
-        console.log('here 8');
             res.send({user})
-        }
-        
+        } 
     }
      catch (error){
         throw (error)
