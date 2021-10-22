@@ -18,12 +18,12 @@ async function getItemsByCartId(cartId){
     try{
         const {rows} = await client.query(`
         SELECT * FROM cart_item
-        where cartId = $1;
+        WHERE cartId = $1;
         `, [cartId])
         return rows
     }catch(error){
         throw error
-    }productRouter
+    }
 }
 
 //update CartItem quantity, wont allow for updating price right now total price should be
@@ -35,7 +35,7 @@ async function updateCartItemQuantity({item_quantity, cartItemId}){
         const {rows}= await client.query(`
         UPDATE cart_item
         SET item_quantity = $1
-        where id = $2
+        WHERE id = $2
         RETURNING *;
         `,[item_quantity, cartItemId])
         return rows
