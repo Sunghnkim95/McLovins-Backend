@@ -48,7 +48,7 @@ async function createTables() {
       username VARCHAR(255) NOT NULL,
       password VARCHAR(255) NOT NULL,
       email VARCHAR(255) NOT NULL,
-      admin BOOLEAN DEFAULT FALSE NOT NULL,
+      admin BOOLEAN DEFAULT FALSE,
       active BOOLEAN DEFAULT TRUE,
       UNIQUE ("username","email")
     );
