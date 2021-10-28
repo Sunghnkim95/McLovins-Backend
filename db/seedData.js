@@ -54,14 +54,14 @@ async function createTables() {
     );
     CREATE TABLE product (
       id SERIAL PRIMARY KEY,
-      name VARCHAR(255) UNIQUE NOT NULL,
+      name TEXT UNIQUE NOT NULL,
       description VARCHAR(255) NOT NULL,
       category VARCHAR(255) NOT NULL,
       quantity INTEGER NOT NULL,
       price DECIMAL(10,2) NOT NULL,
       photo VARCHAR(255) NOT NULL
     );
-      CREATE TABLE cart (
+    CREATE TABLE cart (
       id SERIAL PRIMARY KEY,
       "userId" INTEGER REFERENCES users(id),
       "creationDate" DATE NOT NULL DEFAULT CURRENT_DATE,
