@@ -28,9 +28,9 @@ cartRouter.get('/', async (req, res, next) => {
 */
 cartRouter.get('/cart', async (req, res, next) => {
 	try {
-		const { id } = req.params
-		const cart = await getCartByUserId(id);
-		const cartItems = await getCartItemsByCartId(cart.id)
+		const { cartId } = req.body
+		//const cart = await getCartByUserId(id);
+		const cartItems = await getCartItemsByCartId(cartId)
 		res.send(cartItems);	  
 	} catch (error) {
 		next(error);
