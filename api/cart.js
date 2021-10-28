@@ -28,10 +28,20 @@ cartRouter.get('/', async (req, res, next) => {
 */
 cartRouter.get('/cart', async (req, res, next) => {
 	try {
-		const { cartId } = req.body
-		//const cart = await getCartByUserId(id);
-		const cartItems = await getCartItemsByCartId(cartId)
-		res.send(cartItems);	  
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { userId } = req.body
+		if (id === userId){
+			const cart = await getCartByUserId(id);
+			const cartItems = await getCartItemsByCartId(cart.id)
+			res.send(cartItems);	  
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}	
 	} catch (error) {
 		next(error);
 	}
@@ -39,10 +49,21 @@ cartRouter.get('/cart', async (req, res, next) => {
 
 cartRouter.get('/cart/:product_id', async (req, res, next) => {
 	try {
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { userId, cartId } = req.body
 		const { product_id } = req.params;
-		const { cartId } = req.body; 
-		const checkCart = await checkCartItemByProduct(product_id, cartId);
-		res.send(checkCart);	  
+
+		if (id === userId){
+			const checkCart = await checkCartItemByProduct(product_id, cartId);
+			res.send(checkCart);	 
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}
 	} catch (error) {
 		next(error);
 	}
@@ -50,8 +71,20 @@ cartRouter.get('/cart/:product_id', async (req, res, next) => {
 
 cartRouter.post('/', async (req, res, next) => {
 	try {
-		const newCart = await createCart(req.body);
-		res.send(newCart);
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { userId } = req.body
+
+		if (id === userId){
+			const newCart = await createCart(req.body);
+			res.send(newCart);
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}
 	} catch (error) {
 		next(error);
 	}
@@ -71,16 +104,25 @@ routineRouter.get('/cart/:cartId', async (req, res, next) => {
 });
 */
 
-//ayuda me, does the db set it inactive for your ass or do i have to do sht
-cartRouter.patch('/:cartId', async (req, res, next) => {
+cartRouter.patch('/cartInactive/:cartId', async (req, res, next) => {
 	try {
-		const cartId = req.params.id;
-		//const {  } = req.body;
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { userId } = req.body
+		const { cartId } = req.params;
 		const passing = {
 			id: cartId, 
         };
-		const inactiveCart = await setCartInactive(passing);
-		res.send(inactiveCart);
+		if (id === userId){
+			const inactiveCart = await setCartInactive(passing);
+			res.send(inactiveCart);
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}
 	} catch (error) {
 		next(error);
 	}

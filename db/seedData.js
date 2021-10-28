@@ -50,6 +50,10 @@ async function createTables() {
       email VARCHAR(255) NOT NULL,
       admin BOOLEAN DEFAULT FALSE NOT NULL,
       active BOOLEAN DEFAULT TRUE,
+      street VARCHAR(255) NOT NULL,
+      city VARCHAR(255) NOT NULL,
+      state VARCHAR(255) NOT NULL,
+      zip INTEGER NOT NULL,
       UNIQUE ("username","email")
     );
     CREATE TABLE product (
@@ -65,7 +69,12 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       "userId" INTEGER REFERENCES users(id),
       "creationDate" DATE NOT NULL DEFAULT CURRENT_DATE,
-      active BOOLEAN DEFAULT TRUE
+      active BOOLEAN DEFAULT TRUE,
+      email VARCHAR(255) NOT NULL,
+      street VARCHAR(255) NOT NULL,
+      city VARCHAR(255) NOT NULL,
+      state VARCHAR(255) NOT NULL,
+      zip INTEGER NOT NULL
     );
     CREATE TABLE cart_item (
       id SERIAL PRIMARY KEY,
@@ -92,12 +101,12 @@ async function createInitialUsers() {
   console.log('Starting to create users...');
   try {
     const usersToCreate = [
-      { username: 'johnathan', password: 'johnathan', email: 'johnathan@email.com', admin: true },
-      { username: 'peter', password: 'peter123', email: 'peter@email.com',admin: true },
-      { username: 'michael', password: 'michael1', email: 'michael@email.com',admin: true },
-      { username: 'chuck', password: 'chuck123', email: 'chuck@email.com', admin: true },
-      { username: 'jay', password: 'jay12345', email: 'jay@email.com',admin: false },
-      { username: 'kathryn', password: 'kathryn1', email: 'kathryn@email.com', admin: false }
+      { username: 'johnathan', password: 'johnathan', email: 'johnathan@email.com', admin: true, street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345' },
+      { username: 'peter', password: 'peter123', email: 'peter@email.com',admin: true, street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'  },
+      { username: 'michael', password: 'michael1', email: 'michael@email.com',admin: true, street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'  },
+      { username: 'chuck', password: 'chuck123', email: 'chuck@email.com', admin: true, street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'  },
+      { username: 'jay', password: 'jay12345', email: 'jay@email.com',admin: false, street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  },
+      { username: 'kathryn', password: 'kathryn1', email: 'kathryn@email.com', admin: false, street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  }
     ]
     const users = await Promise.all(usersToCreate.map(createUser));
 
@@ -140,12 +149,12 @@ async function createCartForUser() {
     console.log('Starting to create cart');
     try {
       const cartsToCreate = [
-         { userId: 1 },
-         { userId: 2 }, 
-         { userId: 3 }, 
-         { userId: 4 },
-         { userId: 5 },
-         { userId: 6 }
+         { userId: 1, email: 'johnathan@email.com', street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345' },
+         { userId: 2, email: 'peter@email.com', street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'   }, 
+         { userId: 3, email: 'michael@email.com', street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'   }, 
+         { userId: 4, email: 'chuckk@email.com', street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'   },
+         { userId: 5, email: 'jay@email.com', street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  },
+         { userId: 6, email: 'kathryn@email.com', street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  }
       ]
       const carts = await Promise.all(cartsToCreate.map(createCart));
   
