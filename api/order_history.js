@@ -15,9 +15,20 @@ orderHistoryRouter.use((req, res, next) => {
 
 orderHistoryRouter.post('/order_history', async (req, res, next) => {
 	try {
-		const newOrderHistory = await createOrderHistory(req.body);
-		res.send(newOrderHistory);
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { userId } = req.body
 
+		if (id === userId){
+			const newOrderHistory = await createOrderHistory(req.body);
+			res.send(newOrderHistory);
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}	
 	} catch (error) {
 		next(error);
 	}
@@ -25,8 +36,20 @@ orderHistoryRouter.post('/order_history', async (req, res, next) => {
 
 orderHistoryRouter.get('/', async (req, res, next) => {
 	try {
-	   const orderHistory = await getOrderHistoryByUserId();	   
-	   res.send(orderHistory);	   
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { userId } = req.body
+
+		if (id === userId){
+			const orderHistory = await getOrderHistoryByUserId();	   
+			res.send(orderHistory);	 
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}	  
 	} catch (error) {
 	   next(error);
    }
