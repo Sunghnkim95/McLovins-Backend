@@ -1,13 +1,13 @@
 const client  = require('./client');
 const {getProductById} = require('./products')
 
-async function createCart ({userId}) {
+async function createCart ({userId, email, street, city, state, zip}) {
     try{
         const { rows: [ cart ] } = await client.query(`
-        INSERT INTO cart ("userId")
-        VALUES ($1)
+        INSERT INTO cart ("userId", "email", "street", "city", "state", "zip")
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *;
-    `, [userId]); 
+    `, [userId, email, street, city, state, zip]); 
     return cart;
     }catch (error){
         throw error;
