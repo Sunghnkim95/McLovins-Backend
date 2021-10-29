@@ -23,11 +23,26 @@ usersRouter.use((req, res, next) => {
     next();
   });
 
-  usersRouter.get('/', async (req, res) => {
-    const users = await getAllUsers();
-    res.send({
-      users
-    });
+  usersRouter.get('/allUsers', async (req, res) => {
+    try {
+      const prefix = 'Bearer ';
+      const auth = req.header('Authorization');
+      const token = auth?auth.slice(prefix.length):null;
+      const { admin } = jwt.verify(token, JWT_SECRET);
+
+      if (admin){
+        const users = await getAllUsers();
+        res.send({
+          users
+        })
+      } else {
+        next({
+          message: "Invalid Token"
+        })
+      }	  
+    } catch (error) {
+        throw (error)
+    }
   });
 
     
@@ -55,6 +70,7 @@ usersRouter.post('/login', async (req, res, next) => {
         {
           id: user.id,
           username: user.username,
+          admin: user.admin
         },
         JWT_SECRET,
         {expiresIn: "1w"}
@@ -119,7 +135,8 @@ usersRouter.get('/me', async (req, res, next) => {
       const { id } = jwt.verify(token, JWT_SECRET);
       if (id) {
         const me = await getUserById(id);
-        res.send({ username: me.username,
+        res.send({ 
+          username: me.username,
           token: token
         });
       }
@@ -129,25 +146,42 @@ usersRouter.get('/me', async (req, res, next) => {
       }
     })
    
-usersRouter.get('/:id/cart', async (req, res, next)=> {
-  const { id } = req.params
+usersRouter.get('/:userId/cart', async (req, res, next)=> {
+  const { userId } = req.params
   try {
-    
-    const cart = await getCartByUserId(id)
-
-    res.send(cart)
+    const prefix = 'Bearer ';
+      const auth = req.header('Authorization');
+      const token = auth?auth.slice(prefix.length):null;
+      const { id } = jwt.verify(token, JWT_SECRET);
+      if (id === userId){
+        const cart = await getCartByUserId(id)
+        res.send(cart)
+      } else {
+        next({
+          message: "Invalid Token"
+        })
+      }	  
     } catch(error){
       throw (error)
     }
 })
 
-usersRouter.get('/:id/order_history', async (req, res, next)=> {
-    const { id } = req.params
+usersRouter.get('/:userId/order_history', async (req, res, next)=> {
+    const { userId } = req.params
     try {
-      
-      const orderHistory = await getOrderHistoryByUserId(id)
-  
-      res.send(orderHistory)
+      const prefix = 'Bearer ';
+      const auth = req.header('Authorization');
+      const token = auth?auth.slice(prefix.length):null;
+      const { id } = jwt.verify(token, JWT_SECRET);
+
+      if (id === userId){
+        const orderHistory = await getOrderHistoryByUserId(id)
+        res.send(orderHistory)
+      } else {
+        next({
+          message: "Invalid Token"
+        })
+      }	  
       } catch(error){
         throw (error)
       }

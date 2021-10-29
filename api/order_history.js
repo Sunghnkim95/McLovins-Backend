@@ -34,13 +34,13 @@ orderHistoryRouter.post('/order_history', async (req, res, next) => {
 	}
 });
 
-orderHistoryRouter.get('/', async (req, res, next) => {
+orderHistoryRouter.get('/userId/:userId', async (req, res, next) => {
 	try {
 		const prefix = 'Bearer ';
 		const auth = req.header('Authorization');
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
-		const { userId } = req.body
+		const { userId } = req.params;
 
 		if (id === userId){
 			const orderHistory = await getOrderHistoryByUserId();	   
