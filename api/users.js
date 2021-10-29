@@ -137,6 +137,12 @@ usersRouter.get('/me', async (req, res, next) => {
         const me = await getUserById(id);
         res.send({ 
           username: me.username,
+          email: me.email,
+          admin: me.admin,
+          street: me.street,
+          city: me.city,
+          state: me.state,
+          zip: me.zip,
           token: token
         });
       }
