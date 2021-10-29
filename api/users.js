@@ -23,27 +23,27 @@ usersRouter.use((req, res, next) => {
     next();
   });
 
-  usersRouter.get('/allUsers', async (req, res) => {
-    try {
-      const prefix = 'Bearer ';
-      const auth = req.header('Authorization');
-      const token = auth?auth.slice(prefix.length):null;
-      const { admin } = jwt.verify(token, JWT_SECRET);
+usersRouter.get('/allUsers', async (req, res, next) => {
+  try {
+    const prefix = 'Bearer ';
+    const auth = req.header('Authorization');
+    const token = auth?auth.slice(prefix.length):null;
+    const { admin } = jwt.verify(token, JWT_SECRET);
 
-      if (admin){
-        const users = await getAllUsers();
-        res.send({
-          users
-        })
-      } else {
-        next({
-          message: "Invalid Token"
-        })
-      }	  
-    } catch (error) {
-        throw (error)
-    }
-  });
+    if (admin){
+      const users = await getAllUsers();
+      res.send({
+        users
+      })
+    } else {
+      next({
+        message: "Invalid Token"
+      })
+    }	  
+  } catch (error) {
+      throw (error)
+  }
+});
 
     
 usersRouter.post('/login', async (req, res, next) => {
