@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const client  = require('./client');
 
 async function createUser({ username, password, email, admin}) { 
-  console.log(username, password, email, admin)
   try {
     if (!admin){
       admin = false
@@ -18,7 +17,6 @@ async function createUser({ username, password, email, admin}) {
       RETURNING *;
     `, [username, hashedPassword, email, admin]); 
     delete user.password;
-    console.log('user', user);
     return user;
   } catch (error) {
     throw error;
