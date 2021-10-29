@@ -33,7 +33,10 @@ cartRouter.get('/cart/:userId', async (req, res, next) => {
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
 		const { userId } = req.params
-		if (id === userId){
+		console.log('id', id);
+		console.log('userId', userId);
+
+		if (id === parseInt(userId)){
 			const cart = await getCartByUserId(id);
 			const cartItems = await getCartItemsByCartId(cart.id)
 			res.send(cartItems);	  
