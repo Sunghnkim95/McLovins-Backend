@@ -50,10 +50,10 @@ async function createTables() {
       email VARCHAR(255) NOT NULL,
       admin BOOLEAN DEFAULT FALSE NOT NULL,
       active BOOLEAN DEFAULT TRUE,
-      street VARCHAR(255) NOT NULL,
-      city VARCHAR(255) NOT NULL,
-      state VARCHAR(255) NOT NULL,
-      zip INTEGER NOT NULL,
+      street VARCHAR(255),
+      city VARCHAR(255),
+      state VARCHAR(255),
+      zip INTEGER,
       UNIQUE ("username","email")
     );
     CREATE TABLE product (
