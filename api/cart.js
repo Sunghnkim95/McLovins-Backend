@@ -26,13 +26,13 @@ cartRouter.get('/', async (req, res, next) => {
 	}
 });
 */
-cartRouter.get('/cart', async (req, res, next) => {
+cartRouter.get('/cart/:userId', async (req, res, next) => {
 	try {
 		const prefix = 'Bearer ';
 		const auth = req.header('Authorization');
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
-		const { userId } = req.body
+		const { userId } = req.params
 		if (id === userId){
 			const cart = await getCartByUserId(id);
 			const cartItems = await getCartItemsByCartId(cart.id)
@@ -47,14 +47,13 @@ cartRouter.get('/cart', async (req, res, next) => {
 	}
 });
 
-cartRouter.get('/cart/:product_id', async (req, res, next) => {
+cartRouter.get('/cart/:userId/:cartId/:product_id', async (req, res, next) => {
 	try {
 		const prefix = 'Bearer ';
 		const auth = req.header('Authorization');
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
-		const { userId, cartId } = req.body
-		const { product_id } = req.params;
+		const { product_id, userId, cartId } = req.params;
 
 		if (id === userId){
 			const checkCart = await checkCartItemByProduct(product_id, cartId);
