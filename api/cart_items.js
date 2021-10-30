@@ -21,7 +21,12 @@ cartItemRouter.post('/', async (req, res, next) => {
 		const { cartId, product_id, item_quantity, price, userId } = req.body
 		console.log('id over here', id, cartId, product_id, item_quantity, price, userId);
 		if (id === parseInt(userId)){
-			const newCartItem = await createCartItem(cartId, product_id, item_quantity, price);
+			const newCartItem = await createCartItem({
+				cartId:cartId, 
+				product_id:product_id, 
+				item_quantity:item_quantity, 
+				price:price
+			});
 			res.send(newCartItem);
 		} else {
 			next({
