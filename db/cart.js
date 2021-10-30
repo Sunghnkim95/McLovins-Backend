@@ -57,20 +57,21 @@ async function setCartInactive(cartId){
 
 async function checkCartItemByProduct(cartId, product_id){
     try{
-        const {rows} = await client.query(`
-        SELECT * FROM cart_item
-        WHERE cartid = $1 AND product_id = $2;
-        `, [cartId, product_id])
         const {rows2} = await client.query(`
         SELECT * FROM cart_item;
         `, [cartId, product_id])
-        console.log('rows', rows, rows2)
-        return rows
+        console.log('rows', rows2)
+        return rows2
     }catch(error){
         throw error
     }
 }
-
+/*
+        const {rows} = await client.query(`
+        SELECT * FROM cart_item
+        WHERE cartid = $1 AND product_id = $2;
+        `, [cartId, product_id])
+*/
 module.exports = {
     client,
     createCart,
