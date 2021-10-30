@@ -59,3 +59,26 @@ cartItemRouter.patch('/:cartItemUpdate', async (req, res, next) => {
 	}
 });
 
+cartItemRouter.delete('/:cartItemDelete', async (req, res, next) => {
+	try {
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { cartItemId, userId} = req.body;
+		const passing = {
+			cartItemId: cartItemId, 
+        };
+
+		if (id === userId){
+			const deleteCartItem = await deleteCartItem(passing);
+			res.send(deleteCartItem);
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}	
+	} catch (error) {
+		next(error);
+	}
+});
