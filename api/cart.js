@@ -92,19 +92,28 @@ cartRouter.post('/', async (req, res, next) => {
 	}
 });
 
-/*
-//cartRouter.get('/cart/:cartId')
-routineRouter.get('/cart/:cartId', async (req, res, next) => {
-    const { cartId } = req.params;
+cartRouter.get('/cart/:userId', async (req, res, next) => {
 	try {
-	   const cart = await getCartByUserId();	
-       const cart_items = await getCartItemsByCartId(cartId);   
-	   res.send(cart);	   
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { userId } = req.params
+
+		if (id === parseInt(userId)){
+			const cart = await getCartByUserId(id);
+			console.log('cart', cart);
+
+			res.send(cart);	  
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}	
 	} catch (error) {
-	   next(error);
-   }
+		next(error);
+	}
 });
-*/
 
 cartRouter.patch('/cartInactive/:cartId', async (req, res, next) => {
 	try {
