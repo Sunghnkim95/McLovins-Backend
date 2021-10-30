@@ -19,7 +19,7 @@ cartItemRouter.post('/', async (req, res, next) => {
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
 		const { cartId, product_id, item_quantity, price, userId } = req.body
-
+		console.log('id over here', userId, id);
 		if (id === parseInt(userId)){
 			const newCartItem = await createCartItem(cartId, product_id, item_quantity, price);
 			res.send(newCartItem);
@@ -32,7 +32,6 @@ cartItemRouter.post('/', async (req, res, next) => {
 		next(error);
 	}
 });
-
 
 cartItemRouter.patch('/:cartItemUpdate', async (req, res, next) => {
 	try {
