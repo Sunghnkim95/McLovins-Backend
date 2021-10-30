@@ -20,7 +20,7 @@ cartItemRouter.post('/', async (req, res, next) => {
 		const { id } = jwt.verify(token, JWT_SECRET);
 		const { cartId, product_id, item_quantity, price, userId } = req.body
 
-		if (id === userId){
+		if (id === parseInt(userId)){
 			const newCartItem = await createCartItem(cartId, product_id, item_quantity, price);
 			res.send(newCartItem);
 		} else {
