@@ -56,6 +56,7 @@ async function setCartInactive(cartId){
 }
 
 async function checkCartItemByProduct(cartId, product_id){
+    console.log('hello', cartId, product_id);
     try{
         const {rows2} = await client.query(`
         SELECT * FROM cart_item;
