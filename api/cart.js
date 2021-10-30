@@ -59,7 +59,7 @@ cartRouter.get('/cart_check/:userId/:cartId/:product_id', async (req, res, next)
 		const { product_id, userId, cartId } = req.params;
 
 		if (id === parseInt(userId)){
-			const checkCart = await checkCartItemByProduct(product_id, cartId);
+			const checkCart = await checkCartItemByProduct( cartId, product_id);
 			res.send(checkCart);	 
 		} else {
 			next({
