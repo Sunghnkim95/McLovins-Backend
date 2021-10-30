@@ -26,7 +26,7 @@ cartRouter.get('/', async (req, res, next) => {
 	}
 });
 */
-cartRouter.get('/cart/:userId', async (req, res, next) => {
+cartRouter.get('/:userId', async (req, res, next) => {
 	try {
 		const prefix = 'Bearer ';
 		const auth = req.header('Authorization');
@@ -50,7 +50,7 @@ cartRouter.get('/cart/:userId', async (req, res, next) => {
 	}
 });
 
-cartRouter.get('/cart/:userId/:cartId/:product_id', async (req, res, next) => {
+cartRouter.get('/cart_check/:userId/:cartId/:product_id', async (req, res, next) => {
 	try {
 		const prefix = 'Bearer ';
 		const auth = req.header('Authorization');
@@ -58,7 +58,7 @@ cartRouter.get('/cart/:userId/:cartId/:product_id', async (req, res, next) => {
 		const { id } = jwt.verify(token, JWT_SECRET);
 		const { product_id, userId, cartId } = req.params;
 
-		if (id === userId){
+		if (id === parseInt(userId)){
 			const checkCart = await checkCartItemByProduct(product_id, cartId);
 			res.send(checkCart);	 
 		} else {
