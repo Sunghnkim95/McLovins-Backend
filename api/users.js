@@ -159,7 +159,7 @@ usersRouter.get('/:userId/cart', async (req, res, next)=> {
       const auth = req.header('Authorization');
       const token = auth?auth.slice(prefix.length):null;
       const { id } = jwt.verify(token, JWT_SECRET);
-      if (id === userId){
+      if (id === parseInt(userId)){
         const cart = await getCartByUserId(id)
         res.send(cart)
       } else {
