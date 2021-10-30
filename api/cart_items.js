@@ -25,7 +25,9 @@ cartItemRouter.post('/', async (req, res, next) => {
 			res.send(newCartItem);
 		} else {
 			next({
-				message: "Invalid Token"
+				id:id,
+				userId:userId,
+				message: "Invalid Token Users"
 			})
 		}	
 	} catch (error) {
