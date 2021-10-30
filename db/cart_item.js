@@ -7,6 +7,7 @@ async function createCartItem({cartId, product_id, item_quantity, price}) {
         VALUES ($1, $2, $3, $4)
         RETURNING *;
       `, [cartId, product_id, item_quantity, price]);
+      console.log(item);
       return item;
     } catch (error) {
       throw error;
