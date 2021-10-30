@@ -58,11 +58,11 @@ async function setCartInactive(cartId){
 async function checkCartItemByProduct(cartId, product_id){
     console.log('hello', cartId, product_id);
     try{
-        const {rows2} = await client.query(`
+        const {rows} = await client.query(`
         SELECT * FROM cart_item;
         `)
-        console.log('rows', rows2)
-        return rows2
+        console.log('rows', rows)
+        return rows
     }catch(error){
         throw error
     }
