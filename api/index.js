@@ -48,7 +48,7 @@ const cartRouter = require('./cart');
 apiRouter.use('/cart', cartRouter);
   
 const cartItemRouter = require('./cart_items');
-apiRouter.use('/cart_items', cartRouter);
+apiRouter.use('/cart_items', cartItemRouter);
 
 apiRouter.use((error, req, res, next) => {
   res.send(error);
