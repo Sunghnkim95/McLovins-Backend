@@ -59,8 +59,9 @@ async function checkCartItemByProduct(cartId, product_id){
     console.log('hello', cartId, product_id);
     try{
         const {rows} = await client.query(`
-        SELECT * FROM cart_item;
-        `)
+        SELECT * FROM cart_item
+        WHERE product_id = $1;
+        `, [product_id])
         console.log('rows', rows)
         return rows
     }catch(error){
