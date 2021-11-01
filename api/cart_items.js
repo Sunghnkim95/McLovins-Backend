@@ -51,9 +51,11 @@ cartItemRouter.patch('/:cartItemUpdate', async (req, res, next) => {
 			cartItemId: cartItemId, 
 			item_quantity: item_quantity, 
         };
-
-		if (id === userId){
+		console.log('passing', passing);
+		
+		if (id === parseInt(userId)){
 			const updatedCartItem = await updateCartItemQuantity(passing);
+			console.log('updatedCartItem', updatedCartItem);
 			res.send(updatedCartItem);
 		} else {
 			next({
@@ -76,7 +78,7 @@ cartItemRouter.delete('/:cartItemDelete', async (req, res, next) => {
 			cartItemId: cartItemId, 
         };
 
-		if (id === userId){
+		if (id === parseInt(userId)){
 			const deleteCartItem = await deleteCartItem(passing);
 			res.send(deleteCartItem);
 		} else {
