@@ -13,6 +13,16 @@ async function createCartItem({cartId, product_id, item_quantity, price}) {
       throw error;
     }
 }
+async function getAllCartItems(){
+    try{
+        const {rows} = await client.query(`
+        SELECT * FROM cart_item;
+        `)
+        return rows
+    }catch(error){
+        throw error
+    }
+}
 
 //will get all the items in a cart
 async function getItemsByCartId(cartId){
@@ -103,26 +113,6 @@ module.exports = {
     updateCartItemQuantity,
     deleteCartItem,
     getProductQuantity,
-    checkQuantity
+    checkQuantity,
+    getAllCartItems
   }
-
-
-
-
-
-//     CREATE TABLE cart_item (
-//     id SERIAL PRIMARY KEY,
-//     product_id INTEGER REFERENCES product(id),
-//     item_quantity INTEGER NOT NULL,
-//     price DECIMAL(10,2) NOT NULL
-//   );
-
-// CREATE TABLE product (
-//     id SERIAL PRIMARY KEY,
-//     name VARCHAR(255) UNIQUE NOT NULL,
-//     description VARCHAR(255) NOT NULL,
-//     category VARCHAR(255) NOT NULL,
-//     quantity INTEGER NOT NULL,
-//     price DECIMAL(10,2) NOT NULL,
-//     photo VARCHAR(255) NOT NULL
-//     );
