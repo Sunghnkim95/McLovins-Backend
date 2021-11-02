@@ -49,6 +49,7 @@ async function updateCartItemQuantity({item_quantity, cartItemId}){
         WHERE id = $2
         RETURNING *;
         `,[item_quantity, cartItemId])
+        console.log('rowsrowsrows', rows);
         return rows
     }catch(error){
         throw error
