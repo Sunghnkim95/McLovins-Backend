@@ -47,10 +47,11 @@ cartItemRouter.patch('/:cartItemUpdate', async (req, res, next) => {
 		const { id } = jwt.verify(token, JWT_SECRET);
 		const { item_quantity, cartItemId, userId} = req.body;
 		const passing = {
-			cartItemId: cartId, 
+			cartItemId: cartItemId, 
 			item_quantity: item_quantity, 
         };
-		
+		console.log('HELLO passing', passing);
+
 		if (id === parseInt(userId)){
 			const updatedCartItem = await updateCartItemQuantity(passing);
 			console.log('updatedCartItemupdatedCartItemupdatedCartItem', updatedCartItem);
