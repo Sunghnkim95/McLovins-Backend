@@ -57,14 +57,12 @@ async function updateCartItemQuantity({item_quantity, cartItemId}){
 }
 
 async function deleteCartItem(cartItemId){
-    console.log('deleteCartItem cartItemId ====>', cartItemId);
      try{
         const {rows}= await client.query(`
         DELETE FROM cart_item
         WHERE id= $1
         RETURNING *;
         `,[cartItemId])
-        console.log('row rowrowrowrowrowrowrow', rows);
         return rows
     }catch(error){
         throw error
