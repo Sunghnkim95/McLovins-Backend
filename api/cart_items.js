@@ -50,11 +50,8 @@ cartItemRouter.patch('/:cartItemUpdate', async (req, res, next) => {
 			cartItemId: cartItemId, 
 			item_quantity: item_quantity, 
         };
-		console.log('HELLO passing', passing);
-
 		if (id === parseInt(userId)){
 			const updatedCartItem = await updateCartItemQuantity(passing);
-			console.log('updatedCartItemupdatedCartItemupdatedCartItem', updatedCartItem);
 			res.send(updatedCartItem);
 		} else {
 			next({
@@ -72,14 +69,15 @@ cartItemRouter.delete('/:cartItemDelete', async (req, res, next) => {
 		const auth = req.header('Authorization');
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
-		const { cartItemId, userId} = req.body;
+		const { cartItemId, userId} = req.params;
 		const passing = {
 			cartItemId: cartItemId, 
         };
-		console.log('passing', passing, cartItemId)
-		
+		console.log('passing', req)
+
 		if (id === parseInt(userId)){
 			const deleteCartItem = await deleteCartItem(passing);
+			console.log('inside if statement', deleteCartItem)
 			res.send(deleteCartItem);
 		} else {
 			next({
