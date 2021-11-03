@@ -76,7 +76,8 @@ cartItemRouter.delete('/:cartItemDelete', async (req, res, next) => {
 		const passing = {
 			cartItemId: cartItemId, 
         };
-
+		console.log('passing', passing, cartItemId)
+		
 		if (id === parseInt(userId)){
 			const deleteCartItem = await deleteCartItem(passing);
 			res.send(deleteCartItem);
