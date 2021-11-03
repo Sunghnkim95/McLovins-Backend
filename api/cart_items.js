@@ -69,11 +69,10 @@ cartItemRouter.delete('/:cartItemDelete', async (req, res, next) => {
 		const auth = req.header('Authorization');
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
-		const { cartItemId, userId} = req.params;
+		const { cartItemId, userId} = req.body;
 		const passing = {
 			cartItemId: cartItemId, 
         };
-		console.log('passing', req)
 
 		if (id === parseInt(userId)){
 			const deleteCartItem = await deleteCartItem(passing);
@@ -89,4 +88,4 @@ cartItemRouter.delete('/:cartItemDelete', async (req, res, next) => {
 	}
 });
 
-module.exports = cartItemRouter;
+module.exports = cartItemRouter; 
