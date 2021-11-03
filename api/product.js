@@ -77,4 +77,21 @@ productRouter.delete('/:productId', async (req, res, next) => {
 	}
 });
 
+productRouter.get('/:productId', async (req, res, next) => {
+	try {
+		const { productId } = req.params.id;
+		const activity = await getProductById(productId);
+
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		
+        res.send(activity)
+
+	} catch(error) {
+		next(error);
+	}
+});
+
 module.exports = productRouter;
