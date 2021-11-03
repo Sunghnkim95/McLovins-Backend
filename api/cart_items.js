@@ -70,12 +70,10 @@ cartItemRouter.delete('/:cartItemDelete', async (req, res, next) => {
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
 		const { cartItemId, userId} = req.body;
-		const passing = {
-			cartItemId: cartItemId, 
-        };
+		
 		console.log('HEY OVER HERE', userId, cartItemId);
 		if (id === parseInt(userId)){
-			const deletedCartItem = await deleteCartItem(passing);
+			const deletedCartItem = await deleteCartItem(cartItemId);
 			console.log('inside if statement', deletedCartItem)
 			res.send(deletedCartItem);
 		} else {
