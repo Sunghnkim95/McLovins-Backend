@@ -66,6 +66,7 @@ async function createProduct({ name, description, category, quantity, price, pho
     }
 }
 async function updateProduct (fields) {
+    console.log('fieldsfieldsfields', fields);
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
@@ -82,6 +83,7 @@ async function updateProduct (fields) {
         WHERE id = ${id}
         RETURNING *;
         `, [id, name, description, quantity, price, category, photo]);
+        console.log('this the product', product);
         return product;
     } catch (error){
         throw error

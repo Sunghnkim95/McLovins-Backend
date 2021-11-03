@@ -38,7 +38,7 @@ productRouter.post('/', async (req, res, next) => {
 
 productRouter.patch('/:productId', async (req, res, next) => {
 	try {
-		const productId = req.params.id;
+		const productId = req.params.productId;
 		const { name, description, quantity, price, category, photo} = req.body;
 		const passing = {
 			id: productId, 
@@ -49,7 +49,9 @@ productRouter.patch('/:productId', async (req, res, next) => {
             category: category,
             photo: photo
         };
+		console.log('passingggggg', passing);
 		const updatedProduct = await updateProduct(passing);
+
 		res.send(updatedProduct);
 	} catch (error) {
 		next(error);
