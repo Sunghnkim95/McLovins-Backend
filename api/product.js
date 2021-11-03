@@ -79,7 +79,7 @@ productRouter.delete('/:productId', async (req, res, next) => {
 
 productRouter.get('/:productId', async (req, res, next) => {
 	try {
-		const { productId } = req.params.id;
+		const { productId } = req.params;
 		const activity = await getProductById(productId);
 console.log('this is the activity breh', activity);
 
