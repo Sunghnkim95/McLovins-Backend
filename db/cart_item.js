@@ -56,7 +56,7 @@ async function updateCartItemQuantity({item_quantity, cartItemId}){
     }
 }
 
-async function deleteCartItem(cartItemId){
+async function deleteCartItem({cartItemId}){
      try{
         const {rows}= await client.query(`
         DELETE FROM cart_item

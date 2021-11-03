@@ -73,11 +73,11 @@ cartItemRouter.delete('/:cartItemDelete', async (req, res, next) => {
 		const passing = {
 			cartItemId: cartItemId, 
         };
-
+		console.log('HEY OVER HERE', userId, cartItemId);
 		if (id === parseInt(userId)){
-			const deleteCartItem = await deleteCartItem(passing);
-			console.log('inside if statement', deleteCartItem)
-			res.send(deleteCartItem);
+			const deletedCartItem = await deleteCartItem(passing);
+			console.log('inside if statement', deletedCartItem)
+			res.send(deletedCartItem);
 		} else {
 			next({
 				message: "Invalid Token"
