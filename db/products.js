@@ -2,12 +2,16 @@ const bcrypt = require('bcrypt');
 const client  = require('./client');
 
 async function getProductById(id) {
+    console.log('getProductByIdgetProductById ID',id);
     try{
         const  {rows : [product]}  = await client.query(`
         SELECT *
         FROM product
         WHERE id=$1;
         `, [id])
+        
+    console.log('getProductByIdgetProductById product',product);
+
     return product
     }catch (error){
         throw error;
