@@ -42,6 +42,7 @@ async function getItemsByCartId(cartId){
 //may make an additional price update function in the future which will update price only
 //if price is lower than originally
 async function updateCartItemQuantity({item_quantity, cartItemId}){
+    console.log('updateCartItemQuantity item_quantity, cartItemId', item_quantity, cartItemId)
     try{
         const {rows}= await client.query(`
         UPDATE cart_item
