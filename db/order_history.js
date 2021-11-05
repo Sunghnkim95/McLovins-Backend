@@ -4,10 +4,10 @@ async function createOrderHistory ({userId, cartId, fullname , email, address, c
     console.log('createOrderHistory props', userId, cartId, fullname , email, address, city, state, zip, cardname, cardnumber, expmonth, expyear, cvv);
     try{
         const { rows: [ orders ] } = await client.query(`
-        INSERT INTO order_history ("userId", "cartId", "fullname" , "email", "address", "city", "state", "zip", "cardname", "cardnumber", "expmonth", "expyear", "cvv")
+        INSERT INTO order_history ("userId", "cartId", "fullname" , "email", "street", "city", "state", "zip", "cardname", "cardnumber", "expmonth", "expyear", "cvv")
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
         RETURNING *;
-    `, [userId, cartId, fullname , email, address, city, state, zip, cardname, cardnumber, expmonth, expyear, cvv]); 
+    `, [userId, cartId, fullname , email, street, city, state, zip, cardname, cardnumber, expmonth, expyear, cvv]); 
     console.log('new orders', orders);
     return orders;
     }catch (error){
