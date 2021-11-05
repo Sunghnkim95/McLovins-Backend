@@ -50,6 +50,9 @@ apiRouter.use('/cart', cartRouter);
 const cartItemRouter = require('./cart_items');
 apiRouter.use('/cart_items', cartItemRouter);
 
+const orderHistoryRouter = require('./order_history');
+apiRouter.use('/order_history', orderHistoryRouter);
+
 apiRouter.use((error, req, res, next) => {
   res.send(error);
 });

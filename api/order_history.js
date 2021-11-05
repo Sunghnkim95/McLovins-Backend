@@ -13,7 +13,7 @@ orderHistoryRouter.use((req, res, next) => {
     next(); 
 });
 
-orderHistoryRouter.post('/order_history', async (req, res, next) => {
+orderHistoryRouter.post('/', async (req, res, next) => {
 	try {
 		const prefix = 'Bearer ';
 		const auth = req.header('Authorization');
