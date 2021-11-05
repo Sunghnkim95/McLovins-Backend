@@ -123,4 +123,59 @@ cartRouter.patch('/cartInactive/:cartId', async (req, res, next) => {
 	}
 });
 
+cartRouter.post('/', async (req, res, next) => {
+	try {
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { userId, email, street, city, state, zip } = req.body
+		const passing = {
+			userId:userId, 
+			email:email,
+			street:street,
+			city:city,
+			state:state,
+			zip:zip
+        };
+		if (id === parseInt(userId)){
+			const newCart = await createCart(passing);
+			res.send(newCart);
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
+cartRouter.post('/anonymous', async (req, res, next) => {
+	try {
+		const prefix = 'Bearer ';
+		const auth = req.header('Authorization');
+		const token = auth?auth.slice(prefix.length):null;
+		const { id } = jwt.verify(token, JWT_SECRET);
+		const { street, city, state, zip } = req.body
+		const passing = {
+			email:'unknown@email.com',
+			street:street,
+			city:city,
+			state:state,
+			zip:zip
+        };
+		if (id === 1){
+			const newCart = await createCart(passing);
+			res.send(newCart);
+		} else {
+			next({
+				message: "Invalid Token"
+			})
+		}
+	} catch (error) {
+		next(error);
+	}
+});
+
 module.exports = cartRouter;

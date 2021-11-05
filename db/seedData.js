@@ -117,7 +117,8 @@ async function createInitialUsers() {
       { username: 'michael', password: 'michael1', email: 'michael@email.com',admin: true, street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'  },
       { username: 'chuck', password: 'chuck123', email: 'chuck@email.com', admin: true, street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'  },
       { username: 'jay', password: 'jay12345', email: 'jay@email.com',admin: false, street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  },
-      { username: 'kathryn', password: 'kathryn1', email: 'kathryn@email.com', admin: false, street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  }
+      { username: 'kathryn', password: 'kathryn1', email: 'kathryn@email.com', admin: false, street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  },
+      { username: 'unknown', password: 'unknown123', email: 'unknown@email.com', admin: false, street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  }
     ]
     const users = await Promise.all(usersToCreate.map(createUser));
 
