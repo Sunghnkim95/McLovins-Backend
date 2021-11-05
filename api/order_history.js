@@ -19,10 +19,25 @@ orderHistoryRouter.post('/order_history', async (req, res, next) => {
 		const auth = req.header('Authorization');
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
-		const { userId } = req.body
+		const { userId, cartId,fullname , email, address, city, state, zip, cardname, cardnumber, expmonth, expyear, cvv } = req.body
+		const passing = {
+			userId: userId, 
+			cartId: cartId,
+			fullname: fullname,
+			email: email,
+			address: address,
+			city: city,
+			state: state,
+			zip: zip,
+			cardname: cardname,
+			cardnumber:cardnumber,
+			expmonth:expmonth,
+			expyear:expyear,
+			cvv:cvv
+        };
 
-		if (id === userId){
-			const newOrderHistory = await createOrderHistory(req.body);
+		if (id === parseInt(userId)){
+			const newOrderHistory = await createOrderHistory(passing);
 			res.send(newOrderHistory);
 		} else {
 			next({
@@ -42,7 +57,7 @@ orderHistoryRouter.get('/userId/:userId', async (req, res, next) => {
 		const { id } = jwt.verify(token, JWT_SECRET);
 		const { userId } = req.params;
 
-		if (id === userId){
+		if (id === parseInt(userId)){
 			const orderHistory = await getOrderHistoryByUserId();	   
 			res.send(orderHistory);	 
 		} else {
