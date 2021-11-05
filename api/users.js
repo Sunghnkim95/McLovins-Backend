@@ -194,9 +194,9 @@ usersRouter.get('/:userId/order_history', async (req, res, next)=> {
   })
 
   usersRouter.post('/anonymouslogin', async (req, res, next) => {
-    const { userId, cartId, fullname , email, address, city, state, zip, cardname, cardnumber, expmonth, expyear, cvv } = req.body;
+    const { fullname , email, address, city, state, zip, cardname, cardnumber, expmonth, expyear, cvv } = req.body;
 
-    if (!userId || !cartId || !fullname || !email || !address || !city || !state || !zip || !cardname || !cardnumber || !expmonth || !expyear || !cvv ) {
+    if (!fullname || !email || !address || !city || !state || !zip || !cardname || !cardnumber || !expmonth || !expyear || !cvv ) {
       next({
         name: "MissingCredentialsError",
         message: "Missing Input",
