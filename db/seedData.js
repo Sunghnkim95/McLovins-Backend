@@ -93,12 +93,12 @@ async function createTables() {
       street VARCHAR(255) NOT NULL,
       city VARCHAR(255) NOT NULL,
       state VARCHAR(255) NOT NULL,
-      zip INTEGER NOT NULL
+      zip INTEGER NOT NULL,
       cardname VARCHAR(255) NOT NULL,
       cardnumber INTEGER NOT NULL,
       expmonth INTEGER NOT NULL,
       expyear INTEGER NOT NULL,
-      cvv INTEGER NOT NULL,
+      cvv INTEGER NOT NULL
       );
     `);
   
