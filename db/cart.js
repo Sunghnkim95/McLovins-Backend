@@ -49,6 +49,7 @@ async function setCartInactive(cartId){
         WHERE id = ($1)
         RETURNING *;
         `, [ cartId ])
+        console.log('setCartInactive', rows);
         return rows
     }catch(error){
         throw error

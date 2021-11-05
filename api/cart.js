@@ -109,11 +109,9 @@ cartRouter.patch('/cartInactive/:cartId', async (req, res, next) => {
 		const { id } = jwt.verify(token, JWT_SECRET);
 		const { userId } = req.body
 		const { cartId } = req.params;
-		const passing = {
-			id: cartId, 
-        };
+		
 		if (id === parseInt(userId)){
-			const inactiveCart = await setCartInactive(passing);
+			const inactiveCart = await setCartInactive(cartId);
 			res.send(inactiveCart);
 		} else {
 			next({
