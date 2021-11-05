@@ -193,4 +193,46 @@ usersRouter.get('/:userId/order_history', async (req, res, next)=> {
       }
   })
 
+  usersRouter.post('/anonymouslogin', async (req, res, next) => {
+    const { userId, cartId, fullname , email, address, city, state, zip, cardname, cardnumber, expmonth, expyear, cvv } = req.body;
+
+    if (!userId || !cartId || !fullname || !email || !address || !city || !state || !zip || !cardname || !cardnumber || !expmonth || !expyear || !cvv ) {
+      next({
+        name: "MissingCredentialsError",
+        message: "Missing Input",
+      });
+    }
+
+    try {
+      const user = await getUser({username: 'unknown', password: 'unknown123'});
+      
+      if (!user) {
+        res.status(401)
+        next({
+          name: "IncorrectCredentialsError",
+          message: "This is never wrong",
+        });
+      } else {
+      const token = jwt.sign(
+        {
+          id: user.id,
+          username: user.username,
+          admin: user.admin
+        },
+        JWT_SECRET,
+        {expiresIn: "1w"}
+      );
+      console.log("Label", token)
+      console.log("label", req.body)
+    
+      res.send({
+        token: token
+      });
+    }
+      
+    } catch ({ name, message }) {
+      next({ name, message });
+    }
+  });
+
 module.exports = usersRouter;
