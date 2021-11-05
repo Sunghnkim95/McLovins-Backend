@@ -200,6 +200,7 @@ async function createCartForUser() {
     }
   }
 
+  /*
   async function addCartToOrderHistory() {
     console.log('Starting to add cart to order history...');
     try {
@@ -221,6 +222,7 @@ async function createCartForUser() {
       throw error;
     }
   }
+*/
 
 async function rebuildDB() {
   try {
@@ -231,7 +233,7 @@ async function rebuildDB() {
     await createInitialProducts();
     await createCartForUser();
     await addProductToCart();
-    await addCartToOrderHistory();
+   // await addCartToOrderHistory();
 ;  } catch (error) {
     console.log('Error during rebuildDB')
     throw error;
