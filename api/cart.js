@@ -77,10 +77,17 @@ cartRouter.post('/', async (req, res, next) => {
 		const auth = req.header('Authorization');
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
-		const { userId } = req.body
-
-		if (id === userId){
-			const newCart = await createCart(req.body);
+		const { userId, email, street, city, state, zip } = req.body
+		const passing = {
+			userId:userId, 
+			email:email,
+			street:street,
+			city:city,
+			state:state,
+			zip:zip
+        };
+		if (id === parseInt(userId)){
+			const newCart = await createCart(passing);
 			res.send(newCart);
 		} else {
 			next({
