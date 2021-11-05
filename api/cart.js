@@ -105,7 +105,7 @@ cartRouter.patch('/cartInactive/:cartId', async (req, res, next) => {
 		const passing = {
 			id: cartId, 
         };
-		if (id === userId){
+		if (id === parseInt(userId)){
 			const inactiveCart = await setCartInactive(passing);
 			res.send(inactiveCart);
 		} else {

@@ -87,7 +87,18 @@ async function createTables() {
       id SERIAL PRIMARY KEY,
       "userId" INTEGER REFERENCES users(id),
       "cartId" INTEGER REFERENCES cart(id),
-      placed DATE NOT NULL DEFAULT CURRENT_DATE
+      placed DATE NOT NULL DEFAULT CURRENT_DATE,
+      fullname VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      street VARCHAR(255) NOT NULL,
+      city VARCHAR(255) NOT NULL,
+      state VARCHAR(255) NOT NULL,
+      zip INTEGER NOT NULL
+      cardname VARCHAR(255) NOT NULL,
+      cardnumber INTEGER NOT NULL,
+      expmonth INTEGER NOT NULL,
+      expyear INTEGER NOT NULL,
+      cvv INTEGER NOT NULL,
       );
     `);
   
