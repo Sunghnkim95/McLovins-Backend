@@ -164,7 +164,7 @@ async function createCartForUser() {
          { userId: 1, email: 'johnathan@email.com', street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345' },
          { userId: 2, email: 'peter@email.com', street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'   }, 
          { userId: 5, email: 'michael@email.com', street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'   }, 
-         { userId: 3, email: 'chuckk@email.com', street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'   },
+         { userId: 3, email: 'chuck@email.com', street: '6600 github st.', city: 'Mclovins', state:'VA', zip:'12345'   },
          { userId: 4, email: 'jay@email.com', street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  },
          { userId: 6, email: 'kathryn@email.com', street: '6600 repo st.', city: 'Mclovins', state:'VA', zip:'12345'  }
       ]
