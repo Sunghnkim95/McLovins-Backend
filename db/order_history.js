@@ -14,6 +14,7 @@ async function createOrderHistory ({userId, cartId, fullname , email, address, c
 }
 
 async function getOrderHistoryByUserId(userId) {
+    console.log('userId getOrderHistoryByUserId in DB', userId);
     try{
         const { rows } = await client.query(`
         SELECT * FROM order_history
