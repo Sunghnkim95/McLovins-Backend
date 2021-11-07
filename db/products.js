@@ -74,15 +74,15 @@ async function updateProduct (fields) {
      
     const {id, name, description, quantity, price, category, photo} = fields;
         console.log("setString setStringlengthh", setString.length);
-         /*
+        
 
       if (setString.length === 0) {
         return;
       }
-      */
+     
     try {
         console.log('hello johnathan');
-/*
+
         const { rows: [ product ] } = await client.query(`
         UPDATE product
         SET ${setString}
@@ -92,7 +92,7 @@ async function updateProduct (fields) {
         console.log('this the product1', product);
         console.log('this the product id 2', id);
         return product;
-        */
+        
     } catch (error){
         throw error
     }
