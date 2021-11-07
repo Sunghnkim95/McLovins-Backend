@@ -7,7 +7,6 @@ async function createCartItem({cartId, product_id, item_quantity, price}) {
         VALUES ($1, $2, $3, $4)
         RETURNING *;
       `, [cartId, product_id, item_quantity, price]);
-      console.log(item);
       return item;
     } catch (error) {
       throw error;
@@ -24,7 +23,6 @@ async function getAllCartItems(){
     }
 }
 
-//will get all the items in a cart
 async function getItemsByCartId(cartId){
     try{
         const {rows} = await client.query(`
@@ -37,12 +35,7 @@ async function getItemsByCartId(cartId){
     }
 }
 
-//update CartItem quantity, wont allow for updating price right now total price should be
-//calculated at front end by quantity * price
-//may make an additional price update function in the future which will update price only
-//if price is lower than originally
 async function updateCartItemQuantity({item_quantity, cartItemId}){
-    console.log('updateCartItemQuantity item_quantity, cartItemId', item_quantity, cartItemId)
     try{
         const {rows}= await client.query(`
         UPDATE cart_item
@@ -50,7 +43,6 @@ async function updateCartItemQuantity({item_quantity, cartItemId}){
         WHERE id = $2
         RETURNING *;
         `,[item_quantity, cartItemId])
-        console.log('rowsrowsrows', rows);
         return rows
     }catch(error){
         throw error
@@ -84,7 +76,6 @@ async function getProductQuantity({id}) {
     }
 }
 
-//amount for this would come from front end
 async function checkQuantity({id, amount}) {  
     try {
         const { rows: [ productQuantity ] } = await client.query(`
@@ -94,7 +85,6 @@ async function checkQuantity({id, amount}) {
         RETURNING *;
         `, [id]);
         if (productQuantity >= amount){
-            console.log("add it to cart");
             return true
         }else {
             throw {
@@ -106,7 +96,6 @@ async function checkQuantity({id, amount}) {
             throw error
     }
 }
-
 
 module.exports = {
     client,

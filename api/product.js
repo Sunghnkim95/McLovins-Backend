@@ -14,7 +14,6 @@ const {
 } = require('../db')
 
 productRouter.use((req, res, next) => {
-    console.log("A request is being made to /products");
     next(); 
 });
 
@@ -49,7 +48,6 @@ productRouter.patch('/:productId', async (req, res, next) => {
             category: category,
             photo: photo
         };
-		console.log('passingggggg', passing);
 		const updatedProduct = await updateProduct(passing);
 
 		res.send(updatedProduct);
@@ -58,7 +56,6 @@ productRouter.patch('/:productId', async (req, res, next) => {
 	}
 });
 
-//not too sure about
 productRouter.delete('/:productId', async (req, res, next) => {
 	try {
 		const { productId } = req.params.id;
@@ -90,8 +87,6 @@ productRouter.get('/:productId', async (req, res, next) => {
 		next(error);
 	}
 });
-
-
 
 module.exports = productRouter;
 

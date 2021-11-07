@@ -50,7 +50,6 @@ cartItemRouter.patch('/:cartItemUpdate', async (req, res, next) => {
 			cartItemId: cartItemId, 
 			item_quantity: item_quantity, 
         };
-		console.log('passing ===> ', passing);
 		if (id === parseInt(userId)){
 			const updatedCartItem = await updateCartItemQuantity(passing);
 			res.send(updatedCartItem);

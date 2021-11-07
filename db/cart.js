@@ -1,5 +1,4 @@
 const client  = require('./client');
-const {getProductById} = require('./products')
 
 async function createCart ({userId, email, street, city, state, zip}) {
     try{
@@ -14,7 +13,6 @@ async function createCart ({userId, email, street, city, state, zip}) {
     }
 }
 
-//This will get cartId for the current Active cart session of the user
 async function getCartByUserId(userId) {
     try{
         const { rows: [ cart ] }= await client.query(`
@@ -28,7 +26,6 @@ async function getCartByUserId(userId) {
     }
 }
 
-//This will get all of the cart items based on the cartId given
 async function getCartItemsByCartId(cartId){
     try{
         const {rows} = await client.query(`
@@ -49,7 +46,6 @@ async function setCartInactive(cartId){
         WHERE id = ($1)
         RETURNING *;
         `, [ cartId ])
-        console.log('setCartInactive', rows);
         return rows
     }catch(error){
         throw error
@@ -57,24 +53,17 @@ async function setCartInactive(cartId){
 }
 
 async function checkCartItemByProduct(cartId, product_id){
-    console.log('hello', cartId, product_id);
     try{
         const {rows} = await client.query(`
         SELECT * FROM cart_item
         WHERE product_id = $1 AND cartId =$2;
         `, [product_id, cartId])
-        console.log('rows', rows)
         return rows
     }catch(error){
         throw error
     }
 }
-/*
-        const {rows} = await client.query(`
-        SELECT * FROM cart_item
-        WHERE cartid = $1 AND product_id = $2;
-        `, [cartId, product_id])
-*/
+
 module.exports = {
     client,
     createCart,
