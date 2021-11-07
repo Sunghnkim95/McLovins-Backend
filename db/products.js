@@ -71,7 +71,7 @@ async function updateProduct (fields) {
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
     const {id, name, description, quantity, price, category, photo} = fields;
-        console.log("setString setString", setString);
+        console.log("setString setStringlengthh", setString.length);
 
       if (setString.length === 0) {
         return;
