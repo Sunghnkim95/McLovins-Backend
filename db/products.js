@@ -66,11 +66,12 @@ async function createProduct({ name, description, category, quantity, price, pho
     }
 }
 async function updateProduct (fields) {
-    /*
+    
     console.log('fieldsfieldsfields', fields);
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
+      /*
     const {id, name, description, quantity, price, category, photo} = fields;
         console.log("setString setStringlengthh", setString.length);
 
