@@ -9,7 +9,6 @@ const {
 } = require('../db')
 
 orderHistoryRouter.use((req, res, next) => {
-    console.log("A request is being made to /order_history");
     next(); 
 });
 
@@ -49,7 +48,6 @@ orderHistoryRouter.post('/', async (req, res, next) => {
 	}
 });
 
-//orderHistoryRouter.get('/userId/:userId', async (req, res, next) => {
 orderHistoryRouter.get('/:userId', async (req, res, next) => {
 	try {
 		const prefix = 'Bearer ';
@@ -58,10 +56,8 @@ orderHistoryRouter.get('/:userId', async (req, res, next) => {
 		const { id } = jwt.verify(token, JWT_SECRET);
 		const { userId } = req.params;
 
-		console.log('userId orderHistoryRouter in API', userId);
 		if (id === parseInt(userId)){
 			const orderHistory = await getOrderHistoryByUserId();	   
-			console.log('orderHistory from API res.send', orderHistory);
 			res.send(orderHistory);	 
 		} else {
 			next({

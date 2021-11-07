@@ -19,7 +19,6 @@ const {
 
 
 usersRouter.use((req, res, next) => {
-    console.log("A request is being made to /users");
     next();
   });
 
@@ -44,8 +43,7 @@ usersRouter.get('/allUsers', async (req, res, next) => {
       throw (error)
   }
 });
-
-    
+  
 usersRouter.post('/login', async (req, res, next) => {
     const { username, password } = req.body;
 
@@ -75,8 +73,6 @@ usersRouter.post('/login', async (req, res, next) => {
         JWT_SECRET,
         {expiresIn: "1w"}
       );
-      console.log("Label", token)
-      console.log("label", req.body)
     
       res.send({
         user: user,
@@ -222,8 +218,6 @@ usersRouter.get('/:userId/order_history', async (req, res, next)=> {
         JWT_SECRET,
         {expiresIn: "1w"}
       );
-      console.log("Label", token)
-      console.log("label", req.body)
     
       res.send({
         userId:user.id,

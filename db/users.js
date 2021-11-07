@@ -46,7 +46,6 @@ async function getUser({ username, password }) {
         FROM users;
       `);
       if (!rows) {
-        console.log("there are no users")
       }
       return rows;
     } catch (error) {

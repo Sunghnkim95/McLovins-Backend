@@ -12,20 +12,9 @@ const {
 }= require('../db')
 
 cartRouter.use((req, res, next) => {
-    console.log("A request is being made to /carts");
     next(); 
 });
-/*
-cartRouter.get('/', async (req, res, next) => {
-	try {
-		const { id } = req.params
-		const cart = await getCartByUserId(id);	
-		res.send(cart);	  
-	} catch (error) {
-		next(error);
-	}
-});
-*/
+
 cartRouter.get('/:userId', async (req, res, next) => {
 	try {
 		const prefix = 'Bearer ';
@@ -36,9 +25,7 @@ cartRouter.get('/:userId', async (req, res, next) => {
 
 		if (id === parseInt(userId)){
 			const cart = await getCartByUserId(id);
-			console.log('cart', cart);
 			const cartItems = await getCartItemsByCartId(cart.id)
-			console.log('cartItems', cartItems);
 			res.send(cartItems);	  
 		} else {
 			next({
@@ -99,8 +86,6 @@ cartRouter.post('/', async (req, res, next) => {
 	}
 });
 
-
-
 cartRouter.patch('/cartInactive/:cartId', async (req, res, next) => {
 	try {
 		const prefix = 'Bearer ';
@@ -122,7 +107,5 @@ cartRouter.patch('/cartInactive/:cartId', async (req, res, next) => {
 		next(error);
 	}
 });
-
-
 
 module.exports = cartRouter;

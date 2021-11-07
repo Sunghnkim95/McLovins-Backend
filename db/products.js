@@ -2,16 +2,13 @@ const bcrypt = require('bcrypt');
 const client  = require('./client');
 
 async function getProductById(id) {
-    console.log('getProductByIdgetProductById ID',id);
     try{
         const  {rows : [product]}  = await client.query(`
         SELECT *
         FROM product
         WHERE id=$1;
         `, [id])
-        
-    console.log('getProductByIdgetProductById product',product);
-
+    
     return product
     }catch (error){
         throw error;
@@ -66,30 +63,22 @@ async function createProduct({ name, description, category, quantity, price, pho
     }
 }
 async function updateProduct (fields) {
-    
-    console.log('fieldsfieldsfields', fields);
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
      
-    const {id, name, description, quantity, price, category, photo} = fields;
-        console.log("setString setStringlengthh", setString.length);
-        
+    const {id, name, description, quantity, price, category, photo} = fields;        
 
       if (setString.length === 0) {
         return;
-      }
-     
+      } 
     try {
-        console.log('hello johnathan', id);
-
         const { rows: [ product ] } = await client.query(`
         UPDATE product
         SET ${setString}
         WHERE id = $1
         RETURNING *;
         `, [id]);
-        console.log('this the product1', product);
         return product;
         
     } catch (error){
