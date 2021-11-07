@@ -71,19 +71,24 @@ async function updateProduct (fields) {
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
     const {id, name, description, quantity, price, category, photo} = fields;
+        console.log("setString setString", setString);
 
       if (setString.length === 0) {
         return;
       }
       
     try {
+        console.log('this the product', product);
+        console.log('this the product id', id);
+
         const { rows: [ product ] } = await client.query(`
         UPDATE product
         SET ${setString}
         WHERE id = ${id}
         RETURNING *;
         `, [id, name, description, quantity, price, category, photo]);
-        console.log('this the product', product);
+        console.log('this the product1', product);
+        console.log('this the product id 2', id);
         return product;
     } catch (error){
         throw error
