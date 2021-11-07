@@ -73,9 +73,9 @@ async function updateProduct (fields) {
     const {id, name, description, quantity, price, category, photo} = fields;
         console.log("setString setStringlengthh", setString.length);
 
-      if (setString.length === 0) {
-        return;
-      }
+      //if (setString.length === 0) {
+      //  return;
+      //}
       
     try {
         console.log('this the product', product);
