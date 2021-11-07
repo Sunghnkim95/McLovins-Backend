@@ -81,7 +81,7 @@ async function updateProduct (fields) {
       }
      
     try {
-        console.log('hello johnathan');
+        console.log('hello johnathan', id);
 
         const { rows: [ product ] } = await client.query(`
         UPDATE product
@@ -90,7 +90,6 @@ async function updateProduct (fields) {
         RETURNING *;
         `, [id]);
         console.log('this the product1', product);
-        console.log('this the product id 2', id);
         return product;
         
     } catch (error){
