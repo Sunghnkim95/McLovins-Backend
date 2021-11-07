@@ -58,12 +58,12 @@ async function createTables() {
     );
     CREATE TABLE product (
       id SERIAL PRIMARY KEY,
-      name TEXT UNIQUE NOT NULL,
-      description VARCHAR(255) NOT NULL,
-      category VARCHAR(255) NOT NULL,
-      quantity INTEGER NOT NULL,
-      price DECIMAL(10,2) NOT NULL,
-      photo VARCHAR(255) NOT NULL
+      name TEXT UNIQUE,
+      description VARCHAR(255),
+      category VARCHAR(255),
+      quantity INTEGER,
+      price DECIMAL(10,2),
+      photo VARCHAR(255)
     );
     CREATE TABLE cart (
       id SERIAL PRIMARY KEY,
