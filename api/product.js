@@ -57,7 +57,10 @@ productRouter.patch('/:productId', async (req, res, next) => {
 });
 
 productRouter.delete('/:productId', async (req, res, next) => {
+	console.log('HELLO CALIFORNIA');
 	try {
+		console.log('HELLO VIRGINA');
+
 		const { productId } = req.params.id;
 		console.log('HOOHOHOHOHO PARAMS', req.params);
 		console.log('HOOHOHOHOHO BODY SHOT', req.body);
