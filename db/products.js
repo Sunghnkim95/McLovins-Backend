@@ -69,6 +69,8 @@ async function updateProduct (fields) {
      
     const {id, name, description, quantity, price, category, photo} = fields;        
     const parsedId = parseInt(id)
+    const parsedQuant = parseInt(quantity)
+    //const parsedPrice = parseFloat(price)
     //console.log('fields=>', fields, 'setString=>', setString);
       if (setString.length === 0) {
         return;
@@ -81,7 +83,7 @@ async function updateProduct (fields) {
         SET (name, description, quantity) = ($1, $2, $3)
         WHERE id = $4
         RETURNING *;
-        `, [name, description, quantity, parsedId]);
+        `, [name, description, parsedQuant, parsedId]);
         console.log('rowsrows==>', rows);
         return rows;
     } catch (error){
