@@ -79,7 +79,7 @@ async function updateProduct (fields) {
         SET ${setString}
         WHERE id = $1
         RETURNING *;
-        `, [id]);
+        `, [id, name, description, quantity, price, category, photo]);
         console.log('product==>', product);
         return product;
         
