@@ -77,9 +77,9 @@ async function updateProduct (fields) {
         const { rows: [ product ] } = await client.query(`
         UPDATE product
         SET ${setString}
-        WHERE id = $1
+        WHERE id = $8
         RETURNING *;
-        `, [id, name, description, quantity, price, category, photo]);
+        `, [id, name, description, quantity, price, category, photo, id]);
         console.log('product==>', product);
         return product;
         
