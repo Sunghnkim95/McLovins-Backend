@@ -78,10 +78,10 @@ async function updateProduct (fields) {
         console.log('HIIII');
         const { rows } = await client.query(`
         UPDATE product
-        SET name=$1
-        WHERE id = $2
+        SET (name, description, quantity, price, category, photo) = ($1, $2, $3, $4, $5, $6)
+        WHERE id = $7
         RETURNING *;
-        `, [name, parsedId]);
+        `, [name, description, quantity, price, category, photo, parsedId]);
         console.log('rowsrows==>', rows);
         return rows;
     } catch (error){
