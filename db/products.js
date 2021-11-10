@@ -70,7 +70,7 @@ async function updateProduct (fields) {
     const {id, name, description, quantity, price, category, photo} = fields;        
     const parsedId = parseInt(id)
     const parsedQuant = parseInt(quantity)
-    //const parsedPrice = parseFloat(price)
+    const parsedPrice = parseFloat(price)
     //console.log('fields=>', fields, 'setString=>', setString);
       if (setString.length === 0) {
         return;
@@ -80,10 +80,10 @@ async function updateProduct (fields) {
         console.log('HIIII');
         const { rows } = await client.query(`
         UPDATE product
-        SET (name, description, quantity) = ($1, $2, $3)
-        WHERE id = $4
+        SET (name, description, quantity, price, category, photo) = ($1, $2, $3, $4, $5, $6)
+        WHERE id = $7
         RETURNING *;
-        `, [name, description, parsedQuant, parsedId]);
+        `, [name, description, parsedQuant, parsedPrice, category, photo, parsedId]);
         console.log('rowsrows==>', rows);
         return rows;
     } catch (error){
