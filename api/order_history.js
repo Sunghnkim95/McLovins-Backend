@@ -34,7 +34,6 @@ orderHistoryRouter.post('/', async (req, res, next) => {
 			expyear:expyear,
 			cvv:cvv
         };
-		console.log('passing', passing);
 		if (id === parseInt(userId)){
 			const newOrderHistory = await createOrderHistory(passing);
 			res.send(newOrderHistory);

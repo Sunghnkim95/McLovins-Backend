@@ -21,7 +21,6 @@ async function dropTables() {
   try {
     console.log("Starting to drop tables...");
 
-    // have to make sure to drop in correct order
     await client.query(`
     DROP TABLE IF EXISTS order_history;
     DROP TABLE IF EXISTS cart_item;
@@ -212,30 +211,6 @@ async function createCartForUser() {
     }
   }
 
-  /*
-  async function addCartToOrderHistory() {
-    console.log('Starting to add cart to order history...');
-    try {
-      const cartsToAdd = [
-        {userId: 1, cartId: 1 },
-        {userId: 2, cartId: 2 },
-        {userId: 3, cartId: 3 },
-        {userId: 4, cartId: 4 },
-        {userId: 5, cartId: 5 },
-        {userId: 6, cartId: 6 },
-      ]
-      const oh = await Promise.all(cartsToAdd.map((cart)=> createOrderHistory(cart)));
-  
-      console.log('order history created:');
-      console.log(oh);
-      console.log('Finished creating Order History!');
-    } catch (error) {
-      console.error('Error creating Order History!');
-      throw error;
-    }
-  }
-*/
-
 async function rebuildDB() {
   try {
     client.connect();
@@ -245,7 +220,6 @@ async function rebuildDB() {
     await createInitialProducts();
     await createCartForUser();
     await addProductToCart();
-   // await addCartToOrderHistory();
 ;  } catch (error) {
     console.log('Error during rebuildDB')
     throw error;

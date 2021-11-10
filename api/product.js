@@ -48,7 +48,6 @@ productRouter.patch('/:productId', async (req, res, next) => {
             category: category,
             photo: photo
         };
-		console.log('passingpassingpassingpassing', passing);
 		const updatedProduct = await updateProduct(passing);
 
 		res.send(updatedProduct);
