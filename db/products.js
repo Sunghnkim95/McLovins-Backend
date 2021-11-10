@@ -73,13 +73,15 @@ async function updateProduct (fields) {
       if (setString.length === 0) {
         return;
       } 
+
     try {
+        console.log('HIIII');
         const { rows } = await client.query(`
         UPDATE product
-        SET ${setString}
+        SET id=$1, name=$2, description=$3, category=$4, quantity=$5, price=$6, photo=$7
         WHERE id = $8
         RETURNING *;
-        `, [parsedId, name, description, quantity, price, category, photo, parsedId]);
+        `, [parsedId, name, description,category, quantity, price, photo, parsedId]);
      
         console.log('rowsrows==>', rows);
         return rows;
