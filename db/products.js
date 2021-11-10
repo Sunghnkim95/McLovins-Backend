@@ -70,7 +70,7 @@ async function updateProduct (fields) {
     const {id, name, description, quantity, price, category, photo} = fields;        
     const parsedId = parseInt(id)
     const parsedQuant = parseInt(quantity)
-    const parsedPrice = parseInt(price)
+    const parsedPrice = Decimal.Parse(price)
     //console.log('fields=>', fields, 'setString=>', setString);
       if (setString.length === 0) {
         return;
