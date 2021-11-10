@@ -59,6 +59,8 @@ productRouter.patch('/:productId', async (req, res, next) => {
 productRouter.delete('/:productId', async (req, res, next) => {
 	try {
 		const { productId } = req.params.id;
+		console.log('HOOHOHOHOHO PARAMS', req.params);
+		console.log('HOOHOHOHOHO BODY SHOT', req.body);
 
 		const prefix = 'Bearer ';
 		const auth = req.header('Authorization');
