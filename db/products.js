@@ -69,6 +69,7 @@ async function updateProduct (fields) {
      
     const {id, name, description, quantity, price, category, photo} = fields;        
 
+    console.log('fields=>', fields, 'setString=>', setString);
       if (setString.length === 0) {
         return;
       } 
@@ -79,6 +80,7 @@ async function updateProduct (fields) {
         WHERE id = $1
         RETURNING *;
         `, [id]);
+        console.log('product==>', product);
         return product;
         
     } catch (error){
