@@ -63,8 +63,10 @@ productRouter.delete('/:productId', async (req, res, next) => {
 		const auth = req.header('Authorization');
 		const token = auth?auth.slice(prefix.length):null;
 		const { id } = jwt.verify(token, JWT_SECRET);
-		console.log('HEY OVER HERE', id, admin);
+		console.log('HEY OVER HERE', id);
 		console.log('HEY OVER HERE2', productId);
+		console.log('HEY OVER HERE3', admin);
+
 
         if(admin){
 			const deleteProduct = await deleteProduct(productId);
