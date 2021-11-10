@@ -57,15 +57,8 @@ productRouter.patch('/:productId', async (req, res, next) => {
 });
 
 productRouter.delete('/:productId', async (req, res, next) => {
-	console.log('HELLO CALIFORNIA');
 	try {
-		console.log('HELLO VIRGINA', req);
-		console.log('HOOHOHOHOHO PARAMS', req.params);
-		console.log('HOOHOHOHOHO BODY SHOT', req.body);
-
-		const { productId } = req.params.id;
-
-
+		const { productId } = req.params;
 		const prefix = 'Bearer ';
 		const auth = req.header('Authorization');
 		const token = auth?auth.slice(prefix.length):null;
