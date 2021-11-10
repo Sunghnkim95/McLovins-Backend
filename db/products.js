@@ -69,7 +69,7 @@ async function updateProduct (fields) {
      
     const {id, name, description, quantity, price, category, photo} = fields;        
     const parsedId = parseInt(id)
-    console.log('fields=>', fields, 'setString=>', setString);
+    //console.log('fields=>', fields, 'setString=>', setString);
       if (setString.length === 0) {
         return;
       } 
@@ -78,14 +78,12 @@ async function updateProduct (fields) {
         console.log('HIIII');
         const { rows } = await client.query(`
         UPDATE product
-        SET id=$1, name=$2, description=$3, category=$4, quantity=$5, price=$6, photo=$7
-        WHERE id = $8
+        SET name=$1, description=$2, category=$3, quantity=$4, price=$5, photo=$6
+        WHERE id = $7
         RETURNING *;
-        `, [parsedId, name, description,category, quantity, price, photo, parsedId]);
-     
+        `, [name, description, category, quantity, price, photo, parsedId]);
         console.log('rowsrows==>', rows);
         return rows;
-        
     } catch (error){
         throw error
     }
