@@ -88,11 +88,14 @@ async function updateProduct (fields) {
     }
 }
 async function deleteProduct(id){
+    console.log('THIS THAT DB PRODUCT ID', id);
     try{
        const {rows: [product]} = await client.query(`
            DELETE FROM product
            WHERE id=$1;
        `, [id])
+       console.log('product BD', product);
+       return product;
     }catch (error){
         throw error;
     }
