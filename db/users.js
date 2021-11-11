@@ -105,6 +105,8 @@ async function getUser({ username, password }) {
       ).join(', ');
     const {id, password, email} = fields;
 console.log('hihihi', id, password, email);
+console.log('hihihi1', setString);
+
       if (setString.length === 0) {
         return;
       }
@@ -113,9 +115,9 @@ console.log('hihihi', id, password, email);
         const { rows: [ user ] } = await client.query(`
         UPDATE users
         SET ${setString}
-        WHERE id = ${id}
+        WHERE id = $1
         RETURNING *;
-        `, [id, password, email]);
+        `, [id]);
         return user;
     } catch (error){
         throw error
