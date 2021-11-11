@@ -104,7 +104,7 @@ async function getUser({ username, password }) {
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
     const {id, password, email} = fields;
-
+console.log('hihihi', id, password, email);
       if (setString.length === 0) {
         return;
       }
