@@ -89,6 +89,8 @@ async function updateProduct (fields) {
 }
 async function deleteProduct(id){
     console.log('THIS THAT DB PRODUCT ID', rows);
+    console.log('THIS THAT DB PRODUCT ID253', id);
+
     try{
        const {rows: [product]} = await client.query(`
            DELETE FROM product
