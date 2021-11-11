@@ -111,14 +111,14 @@ console.log('hihihi1', setString);
       if (setString.length === 0) {
         return;
       }
-      
     try {
         const { rows: [ user ] } = await client.query(`
         UPDATE users
         SET ${setString}
-        WHERE id = $1
+        WHERE id=${ id }
         RETURNING *;
-        `, [id]);
+      `, Object.values(dingus));
+  
         return user;
     } catch (error){
         throw error
