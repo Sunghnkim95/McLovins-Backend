@@ -88,15 +88,18 @@ async function updateProduct (fields) {
     }
 }
 async function deleteProduct(id){
-    console.log('THIS THAT DB PRODUCT ID253', id);
-    const parsedId = parseInt(id)
 
     try{
-       const {rows: product} = await client.query(`
+        await client.query(`
+        DELETE FROM cart_item
+        WHERE "product_id=$1";
+        `, [id])
+
+        const {rows: product} = await client.query(`
            DELETE FROM product
            WHERE id=$1
            RETURNING *;
-       `, [parsedId])
+        `, [id])
        console.log('product BD', product);
        return product;
     }catch (error){
