@@ -95,7 +95,7 @@ async function deleteProduct(id){
         SELECT * FROM cart_item
         WHERE cartid IN (
             SELECT id
-            FROM cart;
+            FROM cart
         );
         `)
         /*
