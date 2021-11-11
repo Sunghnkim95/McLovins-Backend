@@ -100,10 +100,11 @@ async function getUser({ username, password }) {
     }
   }
   async function updateUser (fields) {
-    const setString = Object.keys(fields).map(
+    const {id, password, email} = fields;
+    const dingus = { password:password, email:email }
+    const setString = Object.keys(dingus).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
-    const {id, password, email} = fields;
 console.log('hihihi', id, password, email);
 console.log('hihihi1', setString);
 
