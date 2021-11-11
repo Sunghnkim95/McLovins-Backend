@@ -90,9 +90,14 @@ async function updateProduct (fields) {
 async function deleteProduct(id){
 
     try{
+        console.log('HELLO THERE', id);
         const {rows: product} = await client.query(`
         SELECT * FROM cart_item
-        WHERE "product_id"=$1;
+        WHERE "product_id"=$1 AND cartid IN (
+            SELECT id
+            FROM cart
+            WHERE "active"=TRUE;
+        );
         `, [id])
         /*
         const {rows: product} = await client.query(`
@@ -101,11 +106,8 @@ async function deleteProduct(id){
            RETURNING *;
         `, [id])
 
-            AND "cartId" IN (
-            SELECT id
-            FROM cart
-            WHERE "active"=TRUE;
-        )        */
+        "product_id"=$1 AND
+        */
        return product;
     }catch (error){
         throw error;
