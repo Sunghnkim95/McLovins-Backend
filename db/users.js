@@ -107,9 +107,6 @@ async function getUser({ username, password }) {
     const setString = Object.keys(dingus).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
-      
-console.log('hihihi', password, email);
-console.log('hihihi1', setString);
 
       if (setString.length === 0) {
         return;
