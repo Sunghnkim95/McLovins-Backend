@@ -92,8 +92,8 @@ async function deleteProduct(id){
     try{
         const {rows: product} = await client.query(`
         DELETE FROM cart_item
-        WHERE "product_id"=$1 AND cartId IN (
-            SELECT cartId 
+        WHERE "product_id"=$1 AND "cartId" IN (
+            SELECT "cartId"
             FROM cart
             WHERE "active"=TRUE;
         )
