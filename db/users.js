@@ -103,7 +103,7 @@ async function getUser({ username, password }) {
     const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
-    const {id, username, password, email, active} = fields;
+    const {id, password, email} = fields;
 
       if (setString.length === 0) {
         return;
@@ -115,7 +115,7 @@ async function getUser({ username, password }) {
         SET ${setString}
         WHERE id = ${id}
         RETURNING *;
-        `, [id, username, password, email, active]);
+        `, [id, password, email]);
         return user;
     } catch (error){
         throw error

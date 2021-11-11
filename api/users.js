@@ -230,4 +230,25 @@ usersRouter.get('/:userId/order_history', async (req, res, next)=> {
     }
   });
 
+  usersRouter.patch('/me', async (req, res, next) => {
+    try {
+      const prefix = 'Bearer ';
+      const auth = req.header('Authorization');
+      const token = auth?auth.slice(prefix.length):null;
+      const { id } = jwt.verify(token, JWT_SECRET);
+
+      const { email, password} = req.body;
+      const passing = {
+        id: id,
+        email: email, 
+        password: password, 
+      };
+      const updatedUser = await updateUser(passing);
+  
+      res.send(updatedUser);
+    } catch (error) {
+      next(error);
+    }
+  });
+
 module.exports = usersRouter;
