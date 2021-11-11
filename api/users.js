@@ -239,11 +239,10 @@ usersRouter.get('/:userId/order_history', async (req, res, next)=> {
 
       const { email, password} = req.body;
       const passing = {
-        id: id,
         email: email, 
         password: password, 
       };
-      const updatedUser = await updateUser(passing);
+      const updatedUser = await updateUser(id, passing);
   
       res.send(updatedUser);
     } catch (error) {

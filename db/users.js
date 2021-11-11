@@ -99,10 +99,9 @@ async function getUser({ username, password }) {
       throw error;
     }
   }
-  async function updateUser (fields) {
-    const {id, password, email} = fields;
-    const dingus = { password:password, email:email }
-    const setString = Object.keys(dingus).map(
+  async function updateUser (id, fields) {
+    const {password, email} = fields;
+    const setString = Object.keys(fields).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
 console.log('hihihi', id, password, email);
@@ -117,7 +116,7 @@ console.log('hihihi1', setString);
         SET ${setString}
         WHERE id=${ id }
         RETURNING *;
-      `, Object.values(dingus));
+      `, Object.values(fields));
   
         return user;
     } catch (error){
