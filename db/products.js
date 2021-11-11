@@ -94,7 +94,8 @@ async function deleteProduct(id){
         const {rows: product} = await client.query(`
         SELECT * FROM cart_item
         WHERE cartid IN (
-        1,2,3
+            SELECT id
+            FROM cart;
         );
         `)
         /*
