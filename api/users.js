@@ -239,8 +239,8 @@ usersRouter.get('/:userId/order_history', async (req, res, next)=> {
 
       const { email, password} = req.body;
       const passing = {
-        email: email, 
-        password: password, 
+        ...(email && {email: email}), 
+        ...(password && {password: password})
       };
       const updatedUser = await updateUser(id, passing);
   
