@@ -98,10 +98,15 @@ async function deleteProduct(id){
         );
         `, [id])
 
-        const {rows: product} = await client.query(`
+        await client.query(`
            DELETE FROM product
            WHERE id=$1
            RETURNING *;
+        `, [id])
+
+        const {rows: product} = await client.query(`
+           SELECT * FROM product
+           WHERE id=$1;
         `, [id])
        return product;
     }catch (error){
