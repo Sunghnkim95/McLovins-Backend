@@ -66,7 +66,6 @@ productRouter.delete('/:productId', async (req, res, next) => {
 
         if(admin){
 			const deletedProduct = await deleteProduct(productId);
-			console.log('deleteProduct123123', deletedProduct);
 			res.send(deletedProduct);
 		}
 
