@@ -101,9 +101,13 @@ async function getUser({ username, password }) {
   }
   async function updateUser (id, fields) {
     const {password, email} = fields;
-    const setString = Object.keys(fields).map(
+    const SALT_COUNT = 10;
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    const dingus = { ...(email && {email: email}), ...(password && {password: hashedPassword}) }
+    const setString = Object.keys(dingus).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
+      
 console.log('hihihi', password, email);
 console.log('hihihi1', setString);
 
@@ -116,7 +120,7 @@ console.log('hihihi1', setString);
         SET ${setString}
         WHERE id=${ id }
         RETURNING *;
-      `, Object.values(fields));
+      `, Object.values(dingus));
   
         return user;
     } catch (error){
