@@ -88,30 +88,26 @@ async function updateProduct (fields) {
     }
 }
 async function deleteProduct(id){
-
     try{
-        console.log('HELLO THERE', id);
-        const {rows: product} = await client.query(`
-        SELECT * FROM cart_item
+        await client.query(`
+        DELETE * FROM cart_item
         WHERE "product_id"=$1 AND cartid IN (
             SELECT id
             FROM cart
             WHERE "active"=TRUE
         );
         `, [id])
-        /*
-        const {rows: product} = await client.query(`
+
+        await client.query(`
            DELETE FROM product
            WHERE id=$1
            RETURNING *;
         `, [id])
 
-        "product_id"=$1 AND
-
-            SELECT id
-            FROM cart
-            WHERE "active"=TRUE;
-        */
+        const {rows: product} = await client.query(`
+           SELECT * FROM product
+           WHERE id=$1;
+        `, [id])
        return product;
     }catch (error){
         throw error;
