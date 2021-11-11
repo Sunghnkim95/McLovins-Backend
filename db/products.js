@@ -90,7 +90,7 @@ async function updateProduct (fields) {
 async function deleteProduct(id){
     try{
         await client.query(`
-        DELETE * FROM cart_item
+        DELETE FROM cart_item
         WHERE "product_id"=$1 AND cartid IN (
             SELECT id
             FROM cart
