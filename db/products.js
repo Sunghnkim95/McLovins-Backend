@@ -96,7 +96,7 @@ async function deleteProduct(id){
         WHERE cartid IN (
         1,2,3
         );
-        `, [id])
+        `)
         /*
         const {rows: product} = await client.query(`
            DELETE FROM product
