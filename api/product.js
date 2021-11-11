@@ -65,9 +65,9 @@ productRouter.delete('/:productId', async (req, res, next) => {
 		const { admin } = jwt.verify(token, JWT_SECRET);
 
         if(admin){
-			const deleteProduct = await deleteProduct(productId);
-			console.log('deleteProduct123123', deleteProduct);
-			res.send(deleteProduct);
+			const deletedProduct = await deleteProduct(productId);
+			console.log('deleteProduct123123', deletedProduct);
+			res.send(deletedProduct);
 		}
 
 	} catch(error) {
