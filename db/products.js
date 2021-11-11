@@ -90,8 +90,9 @@ async function updateProduct (fields) {
 async function deleteProduct(id){
 
     try{
+        console.log('HELLO THERE', id);
         const {rows: product} = await client.query(`
-        SELECT FROM cart_item
+        SELECT * FROM cart_item
         WHERE "product_id"=$1 AND "cartId" IN (
             SELECT id
             FROM cart
