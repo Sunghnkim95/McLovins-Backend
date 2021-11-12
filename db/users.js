@@ -107,7 +107,7 @@ async function getUser({ username, password }) {
     const setString = Object.keys(dingus).map(
         (key, index) => `"${ key }"=$${ index + 1 }`
       ).join(', ');
-
+console.log('dingusdingus', dingus);
       if (setString.length === 0) {
         return;
       }
@@ -118,7 +118,7 @@ async function getUser({ username, password }) {
         WHERE id=${ id }
         RETURNING *;
       `, Object.values(dingus));
-  
+  console.log('useruseruser', user);
         return user;
     } catch (error){
         throw error
