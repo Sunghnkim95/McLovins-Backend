@@ -7,6 +7,8 @@ The project was assigned by Fullstack Academy as a final capstone project, using
 
 The project was a great challenge to over within the 4 weeks given, but a huge joy to work with. It helped clarify many misunderstandings and learned many new functions along the way. 
 
+Site link: https://mclovins.netlify.app/
+
 Frontend available via this link: https://github.com/Sunghnkim95/McLovins-Frontend
 
 Watch us give a presentation on the project @ https://youtu.be/DEXfHUk9I6U
